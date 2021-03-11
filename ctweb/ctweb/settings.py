@@ -121,8 +121,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'/ctapp/static'),
+    BASE_DIR /'ctapp/static',
 ]
-STATIC_ROOT = os.path.join(BASE_DIR,'assets')
+STATIC_ROOT = os.path.join(Path(__file__).resolve().parent,'assets')
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'/assignments_uploaded/')
+A_DIR = Path(__file__).resolve().parent
+MEDIA_ROOT = os.path.join(A_DIR,'/assignments_uploaded/')

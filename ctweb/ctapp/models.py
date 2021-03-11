@@ -1,6 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+# Create your models here.(a,b) where a is input and b is stored in db
 SEMESTER_CHOICES = [("1", 1),("2", 2),("3", 3),("4", 4),("5", 5),("6", 6),("7", 7),("8", 8),]
 BRANCH_CHOICES = [("IT","IT"),("CS", "CS"),("EC", "EC"),("MECH", "MECH"),("EE", "EE"),("EX", "EX"),("CIVIL", "CIVIL"),]
 SEC_CHOICES = [('A','A'),('B','B'),('C','C')]
@@ -8,6 +9,7 @@ CLG_CHOICES = [('LNCT','LNCT'),('LNCTS','LNCTS'),('LNCTE','LNCTE')]
 # Create your models here.
 
 class student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,default=None)
     enrollment_number = models.CharField(max_length = 12,primary_key = True)
     name = models.CharField(max_length = 30)
     college_name = models.CharField(max_length = 10,choices = CLG_CHOICES,default = 'LNCT')
@@ -22,6 +24,7 @@ class student(models.Model):
 
 
 class teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,default=None)
     name = models.CharField(max_length=30)
     college_name = models.CharField(max_length = 10,choices = CLG_CHOICES,default = 'LNCT')
     branch = models.CharField(max_length=20, choices=BRANCH_CHOICES, default='IT')
@@ -56,9 +59,9 @@ class teacher_assign(models.Model):
     s_id = models.ForeignKey(subject,on_delete=models.CASCADE)  #subject id
     t_id = models.ForeignKey(teacher,on_delete=models.CASCADE)  #teacher id
     def __str__(self):
-        t_name = str(teacher.objects.get(pk=self.t_id)['name'])     #get name of teacher
-        s_name = str(subject.objects.get(pk=self.s_id)['name'])     #get subject name
-        sem_sec = str(Class.objects.get(pk=self.c_id)['sem'])+str(Class.objects.get(pk=self.c_id)['sec'])
+        t_name = self.t_id.name#get name of teacher
+        s_name = self.s_id.name    #get subject name
+        sem_sec = str(self.c_id.sem) + "TH - " + str(self.c_id.sec)
         return sem_sec+" - "+s_name+' - ' + t_name
 
 class assignment(models.Model):
@@ -69,8 +72,8 @@ class assignment(models.Model):
     last_date = models.DateField()
 
     def __str__(self):
-        s_name = str(subject.objects.get(pk=self.s_id)['name'])     #get subject name
-        sem_sec = str(Class.objects.get(pk=self.c_id)['sem'])+str(Class.objects.get(pk=self.c_id)['sec'])
+        s_name = str(self.s_id.name)     #get subject name
+        sem_sec = str(self.c_id.sem)+"TH - "+str(self.c_id.sec)
         return sem_sec+" - "+s_name+' - ' + str(self.topic)
 
 
@@ -88,10 +91,10 @@ class student_submission(models.Model):
     file = models.FileField(upload_to =user_directory_path)
 
     def __str__(self):
-        s_name = str(subject.objects.get(pk=assignment.objects.get(pk=self.a_id)['s_id'])['name'])  #subject name
-        topic = str(assignment.objects.get(pk=self.a_id)['topic'])  #topic name
-        sem_sec = str(Class.objects.get(pk=self.assignment.objects.get(pk=self.a_id)['c_id'])['sem'])+str(Class.objects.get(pk=self.assignment.objects.get(pk=self.a_id)['c_id'])['sec'])
-        return str(self.stud_id)+" - "+sem_sec+" - "+ s_name + " - "+ "topic"
+        s_name = str(((self.a_id).s_id).name)  #subject name
+        topic = str(self.a_id.topic)  #topic name
+        sem_sec = str((self.a_id.c_id.sem))+"TH - "+str((self.a_id.c_id.sec))
+        return str(self.stud_id.enrollment_number)+" - "+sem_sec+" - "+ s_name + " - "+ str(topic)
 
 
 
