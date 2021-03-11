@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c8bdacce-e3c3-45ec-8498-3b9b792607c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/assignments_uploaded/readme.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctweb/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctweb/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
