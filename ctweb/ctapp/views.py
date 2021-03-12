@@ -139,8 +139,6 @@ def s_logout(request):
 
 
 
-
-
 #Helper functions
 def get_subjects(student):
     branch = student.branch
