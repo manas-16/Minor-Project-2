@@ -9,7 +9,7 @@ CLG_CHOICES = [('LNCT','LNCT'),('LNCTS','LNCTS'),('LNCTE','LNCTE')]
 # Create your models here.
 
 class student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,default=None)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,unique=True)
     enrollment_number = models.CharField(max_length = 12,primary_key = True)
     name = models.CharField(max_length = 30)
     college_name = models.CharField(max_length = 10,choices = CLG_CHOICES,default = 'LNCT')
@@ -24,7 +24,7 @@ class student(models.Model):
 
 
 class teacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,default=None)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,unique=True)
     name = models.CharField(max_length=30)
     college_name = models.CharField(max_length = 10,choices = CLG_CHOICES,default = 'LNCT')
     branch = models.CharField(max_length=20, choices=BRANCH_CHOICES, default='IT')
