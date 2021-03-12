@@ -28,5 +28,10 @@
 <h1>{{t.s_id.name}}</h1>
 {% endfor %}
 
+
+{% for s in student %}
+<a href="{% url 's_db' s.enrollment_number %}">go to student dashboard</a>
+{% endfor %}
+
 </body>
 </html>

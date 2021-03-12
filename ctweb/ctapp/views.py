@@ -5,6 +5,7 @@ from .models import teacher,student,subject,teacher_assign,student_submission,as
 from django.contrib import auth
 from django.shortcuts import redirect,HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -16,6 +17,8 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
+
+#teacher views
 def teacher_login(request):
     if request.method=="POST":
         username = request.POST["username"]
@@ -35,7 +38,7 @@ def teacher_login(request):
         context = {}
         return HttpResponse(template.render(context, request))
 
-
+@login_required(login_url='t_login/')
 def teacher_dashboard(request,id):
     template = loader.get_template('index.html')
     current_teacher = teacher.objects.get(id=id)
@@ -44,7 +47,8 @@ def teacher_dashboard(request,id):
     return HttpResponse(template.render(context, request))
 
 
-def teacher_d_subject(request, id, t_assign_id):           # to list assignements given subject and class
+@login_required(login_url='t_login/')
+def teacher_subject_assign(request, id, t_assign_id):           # to list assignements given subject and class
     template = loader.get_template('index.html')
     current_teacher = teacher.objects.get(id=id)
     current_subject = t_assign_id.s_id
@@ -54,8 +58,35 @@ def teacher_d_subject(request, id, t_assign_id):           # to list assignement
     return HttpResponse(template.render(context, request))
 
 
+@login_required(login_url='t_login/')
+def teacher_assignment_submission(request,a_id):
+    template = loader.get_template('index.html')
+    student_submission_list = student_submission.objects.filter(a_id=a_id)
+    current_teacher = a_id.t_id
+    context = {'teacher':current_teacher,'submission_list':student_submission_list}
+    return HttpResponse(template.render(context, request))
 
 
+@login_required(login_url='t_login/')
+def teach_assign_create(request,stud_id,assign_id):
+    pass
+
+
+@login_required(login_url='t_login/')
+def assignment_viewer(request,id):
+    submission = student_submission.objects.filter(id=id)
+    template = loader.get_template('index.html')
+    context = {'submission':submission}
+    return HttpResponse(template.render(context,request))
+
+def t_logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/t_login')
+
+
+
+
+#student views
 def student_login(request):
     if request.method=="POST":
         username = request.POST["username"]
@@ -76,6 +107,7 @@ def student_login(request):
         return HttpResponse(template.render(context, request))
 
 
+#@login_required(login_url='s_login/')
 def student_dashboard(request,id):
     template = loader.get_template('index.html')
     current_student = student.objects.get(enrollment_number=id)
@@ -84,7 +116,8 @@ def student_dashboard(request,id):
     return HttpResponse(template.render(context, request))
 
 
-def student_d_subject(request,id,sub_id):           # to list assignements given subject and class
+@login_required(login_url='s_login/')
+def student_subject_assign(request,id,sub_id):           # to list assignements given subject and class
     template = loader.get_template('index.html')
     current_student = student.objects.get(enrollment_number=id)
     current_subject = subject.objects.get(subject_code=sub_id)
@@ -93,7 +126,16 @@ def student_d_subject(request,id,sub_id):           # to list assignements given
     return HttpResponse(template.render(context, request))
 
 
+@login_required(login_url='s_login/')
+def stud_assign_submit(request,stud_id,assign_id):
+    pass
 
+
+
+@login_required(login_url='s_login/')
+def s_logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/s_login')
 
 
 
