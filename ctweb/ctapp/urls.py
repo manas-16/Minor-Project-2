@@ -20,3 +20,7 @@ urlpatterns = [
     path('s_assign_form/<str:stud_id>/<int:assign_id>', views.stud_assign_submit, name="submit_assign"),
 
 ]
+
+
+
+

@@ -3,13 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c8bdacce-e3c3-45ec-8498-3b9b792607c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/Assignments/assignments_uploaded/class_6_A_WIRELESS AND MOBILE COMM._new test/Android_Experiment1.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/Assignments/assignments_uploaded/class_6_A_WIRELESS AND MOBILE COMM._tes2/Android_Experiment1.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/templates/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/templates/student login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/templates/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/templates/teacher login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/templates/services.html" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/templates/student dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctweb/ctapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctweb/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctweb/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -34,7 +34,7 @@ def teacher_login(request):
             messages.info(request,"Invalid Credentials")
             return redirect('/t_login')
     else:
-        template = loader.get_template('contact.html')
+        template = loader.get_template('teacher login.html')
         context = {}
         return HttpResponse(template.render(context, request))
 
@@ -103,7 +103,7 @@ def student_login(request):
             messages.info(request,"Invalid Credentials")
             return redirect('/s_login')
     else:
-        template = loader.get_template('about.html')
+        template = loader.get_template('student login.html')
         context = {}
         return HttpResponse(template.render(context, request))
 
