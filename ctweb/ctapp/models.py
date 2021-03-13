@@ -80,8 +80,10 @@ class assignment(models.Model):
 #to get separate folder for each assignment
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
-    folder = str(instance.a_id.c_id.sem) + "_" + str(instance.a_id.c_id.sec) + "_" + str(instance.a_id.s_id.name) + "_"+str(instance.a_id.topic)
-    return 'class_{0}/{1}'.format(folder, filename)
+    cclass = str(instance.a_id.c_id.sem) + "_" + str(instance.a_id.c_id.sec)
+    sub = str(instance.a_id.s_id.name)
+    top = str(instance.a_id.topic)
+    return 'class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,filename)
 
 
 

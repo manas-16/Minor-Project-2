@@ -125,4 +125,4 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(Path(__file__).resolve().parent,'assets')
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'Assignments/assignments_uploaded/')
+MEDIA_ROOT = os.path.join(BASE_DIR,'Assignments')
