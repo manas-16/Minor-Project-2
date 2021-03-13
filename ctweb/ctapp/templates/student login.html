@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
+{% load static %}
+
   <head>
-    {% load static %}
+    
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -19,7 +22,7 @@ Parallo Template
 https://templatemo.com/tm-534-parallo
 -->
   <body id="servicesPage">
-    <div class="parallax-window" data-parallax="scroll" data-image-src="img/study.jpg">
+    <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/study.jpg' %}">
       <div class="container-fluid">
         <div class="row tm-brand-row">
           <div class="col-lg-4 col-11">
@@ -27,7 +30,7 @@ https://templatemo.com/tm-534-parallo
               <i class="fas fa-2x fa-pen tm-brand-icon"></i>
               <div class="tm-brand-texts">
                 <h1 class="text-uppercase tm-brand-name">College Tab</h1>
-                <p class="small">keeps track of your assignments</p>
+                <p class="small">Keep track of all your assignments here!</p>
               </div>
             </div>
           </div>
@@ -106,9 +109,9 @@ https://templatemo.com/tm-534-parallo
                     <input type="password" id="contact_pass" name="contact_pass" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Password" required="">
                   </div>
 				  <div class="text-right">
-                    <button onclick="document.location='services.html'" type="submit" class="btn btn-primary tm-btn-submit rounded-0">
+                    <a href="#" type="submit" class="btn btn-primary tm-btn-submit rounded-0">
                       Submit
-                    </button>
+                    </a>
 					&nbsp;&nbsp;
                   </div>
 				  <div class="text-right">
