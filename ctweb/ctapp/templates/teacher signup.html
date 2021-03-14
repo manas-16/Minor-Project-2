@@ -71,30 +71,33 @@ https://templatemo.com/tm-534-parallo
      
 
         <section class="row tm-contact-row">
-
-            <div class="col-lg-6 tm-contact-col-right">
-                <div class="tm-bg-black-transparent tm-contact-text">
-                            
-                    <i class="mx-auto mb-5 fas fa-3x fa-address-card tm-app-feature-icon"></i>
-					<p style="font-size:70%;">Existing User?</p>
-                    <h1 class="text-uppercase tm-services-page-title tm-testimonials-page-title">Login</h1>
-                    <div class="form-group">
+            <div class="col-lg-6 tm-contact-col-left">
+                <form action="#" method="POST" id="tmContactForm" class="tm-bg-black-transparent tm-contact-form">
+				<p style="font-size:70%;">New User?</p>
+				<h1 class="text-uppercase tm-services-page-title tm-testimonials-page-title">Register</h1>
+                  <!-- <div class="form-group">
+                    <input type="text" id="contact_name" name="contact_name" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Name" required="">
+                  </div>
+                  <div class="form-group">
                     <input type="email" id="contact_email" name="contact_email" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Email" required="">
+                  </div>
+				  <div class="form-group">
+                    <input type="number" id="contact_number" name="contact_number" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Contact number" required="">
                   </div>
 				  <div class="form-group">
                     <input type="password" id="contact_pass" name="contact_pass" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Password" required="">
                   </div>
-				  <div class="text-right">
+                   -->
+                  {% csrf_token %}
+                  {{form.as_p}}
+
+                  <div class="text-right">
                     <button type="submit" class="btn btn-primary tm-btn-submit rounded-0">
                       Submit
                     </button>
-					&nbsp;&nbsp;
+                    <a href="{% url 't_login' %}">Already an user? Login here!</a>
                   </div>
-				  <div class="text-right">
-				  <p style="font-size:70%;">Forgot Password?</p>
-          <a href="{% url 't_signup' %}">New? Register here!</a>
-				  </div>
-                </div>
+                </form>
             </div>
         </section>
 

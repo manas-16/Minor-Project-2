@@ -6,6 +6,8 @@ from django.contrib import auth
 from django.shortcuts import redirect,HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .forms import StudentForm
+from .forms import TeacherForm
 
 # Create your views here.
 def index(request):
@@ -34,9 +36,26 @@ def teacher_login(request):
             messages.info(request,"Invalid Credentials")
             return redirect('/t_login')
     else:
-        template = loader.get_template('teacher login.html')
+        #form = TeacherForm()
         context = {}
+        template = loader.get_template('teacher login.html')
         return HttpResponse(template.render(context, request))
+
+
+def teacher_signup(request):
+
+    form = TeacherForm()
+
+    if request.method == 'POST':
+        form = TeacherForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        context = {'form': form}
+        template = loader.get_template('teacher signup.html')
+        return HttpResponse(template.render(context, request))
+
+
 
 
 @login_required(login_url='t_login/')
@@ -103,9 +122,23 @@ def student_login(request):
             messages.info(request,"Invalid Credentials")
             return redirect('/s_login')
     else:
-        template = loader.get_template('student login.html')
         context = {}
+        template = loader.get_template('student login.html')
         return HttpResponse(template.render(context, request))
+
+
+def student_signup(request):
+
+    form = StudentForm()
+
+    if request.method == 'POST':
+        form = TeacherForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    context = {'form': form}
+    template = loader.get_template('student signup.html')
+    return HttpResponse(template.render(context, request))
 
 
 @login_required(login_url='s_login/')

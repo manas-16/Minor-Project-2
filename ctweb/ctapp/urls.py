@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     path('t_login/', views.teacher_login,name='t_login'),
+    path('t_signup/', views.teacher_signup,name='t_signup'),
     path('t_dashboard/<int:id>/', views.teacher_dashboard,name='t_db'),
     path('t_sub_assign/<int:id>/<int:t_assign_id>/', views.teacher_subject_assign,name='t_subject_assignment_list'),
     path('t_assignment_submission/<int:a_id>/', views.teacher_assignment_submission,name="t_assign_submit" ),
@@ -14,6 +15,7 @@ urlpatterns = [
     path('t_s_view_assign/<int:assign_id>/<str:stud_id>/', views.assignment_viewer,name="view_submission" ),
 
     path('s_login/', views.student_login, name='s_login'),
+    path('s_signup/', views.student_signup, name='s_signup'),
     path('s_logout/', views.s_logout, name="s_logout"),
     path('s_dashboard/<str:id>/', views.student_dashboard, name='s_db'),
     path('s_sub_assign/<str:id>/<str:sub_id>', views.student_subject_assign, name='s_subject_assignment_list'),
