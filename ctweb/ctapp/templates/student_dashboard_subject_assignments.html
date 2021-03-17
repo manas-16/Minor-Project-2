@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{student.name}}
+{{student.enrollment_number}}
+<br>
+{{subject.name}}
+{{subject.subject_code}}
+
+
+{% for a in assignment_list %}
+<h1>{{a.topic}}</h1>
+<h2>{{a.last_date}}</h2>
+<a href="{% url 'student:submit_assign' student.enrollment_number a.id%}">upload</a>
+{% endfor %}
+</body>
+</html>
