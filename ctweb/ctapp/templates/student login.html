@@ -73,21 +73,44 @@ https://templatemo.com/tm-534-parallo
      
 
         <section class="row tm-contact-row">
-		    <div class="col-lg-3 tm-contact-col-left">
+		<div class="col-lg-1 tm-contact-col-left">
+			</div>
+		
+		    <div class="col-lg-4 tm-contact-col-left">
+			<div class="tm-bg-black-transparent tm-contact-text" align="center">
+			&nbsp;
+			<i class="mx-auto mb-5 fas fa-3x fa-address-card tm-app-feature-icon"></i>
+					<p style="font-size:100%;">Existing User?</p>
+                    <h1 class="text-uppercase tm-services-page-title tm-testimonials-page-title" style="font-size:280%;">Login</h1>
+					
+			</div>
 			</div>
 			
             <div class="col-lg-6 tm-contact-col-right" align="center">
-                <div class="tm-bg-black-transparent tm-contact-text">
-                            
+                <div class="tm-bg-black-transparent tm-contact-text" align="center">
+                     <!--       
                     <i class="mx-auto mb-5 fas fa-3x fa-address-card tm-app-feature-icon"></i>
 					<p style="font-size:70%;">Existing User?</p>
                     <h1 class="text-uppercase tm-services-page-title tm-testimonials-page-title">Login</h1>
+					-->
+					<div class="form-group">
+					<label for="email">Email Id:</label><br>
+                    <input type="email" id="contact_email" name="contact_email"><br>
+					</div>
+					<div class="form-group">
+                    <label for="password">Password:</label><br>
+                    <input type="password" id="contact_pass" name="contact_pass">
+					</div>
+					
+					<!--
                     <div class="form-group">
                     <input type="email" id="contact_email" name="contact_email" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Email" required="">
                   </div>
 				  <div class="form-group">
                     <input type="password" id="contact_pass" name="contact_pass" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Password" required="">
                   </div>
+				  -->
+				  
 				  <div class="text-right">
                     <a href="#" type="submit" class="btn btn-primary tm-btn-submit rounded-0">
                       Submit
@@ -95,13 +118,15 @@ https://templatemo.com/tm-534-parallo
 					&nbsp;&nbsp;
                   </div>
 				  <div class="text-right">
-				  <p style="font-size:70%;">Forgot Password?</p>
-          <a href="{% url 's_signup' %}">New? Register here!</a>
+				  
+                  <a style="font-size:80%;" href="{% url 's_signup' %}">New? Register here!</a>
 				  </div>
                 </div>
             </div>
+			<!--
 			<div class="col-lg-3 tm-contact-col-right">
 			</div>
+			-->
         </section>
 
         <!-- Call to Action -->
