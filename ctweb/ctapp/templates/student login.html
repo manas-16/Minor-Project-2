@@ -79,21 +79,19 @@ https://templatemo.com/tm-534-parallo
                     <i class="mx-auto mb-5 fas fa-3x fa-address-card tm-app-feature-icon"></i>
 					<p style="font-size:70%;">Existing User?</p>
                     <h1 class="text-uppercase tm-services-page-title tm-testimonials-page-title">Login</h1>
+                  <form method="POST" action="{% url 's_login' %}">
+                    {% csrf_token %}
+                      <div class="form-group">
+                      <input type="email" id="contact_email" name="username" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="username" required="">
+                    </div>
                     <div class="form-group">
-                    <input type="email" id="contact_email" name="contact_email" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Email" required="">
-                  </div>
-				  <div class="form-group">
-                    <input type="password" id="contact_pass" name="contact_pass" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Password" required="">
-                  </div>
-				  <div class="text-right">
-                    <a href="#" type="submit" class="btn btn-primary tm-btn-submit rounded-0">
-                      Submit
-                    </a>
-					&nbsp;&nbsp;
-                  </div>
+                      <input type="password" id="contact_pass" name="password" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Password" required="">
+                    </div>
+                    <input type="submit" value="Submit">
+                  </form>
 				  <div class="text-right">
 				  <p style="font-size:70%;">Forgot Password?</p>
-          <a href="{% url 's_signup' %}">New? Register here!</a>
+                  <a href="{% url 's_signup' %}">New? Register here!</a>
 				  </div>
                 </div>
             </div>
@@ -182,3 +180,14 @@ https://templatemo.com/tm-534-parallo
     </script>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+

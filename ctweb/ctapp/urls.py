@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from .import views
 
 urlpatterns = [
@@ -16,11 +16,13 @@ urlpatterns = [
 
     path('s_login/', views.student_login, name='s_login'),
     path('s_signup/', views.student_signup, name='s_signup'),
-    path('s_logout/', views.s_logout, name="s_logout"),
-    path('s_dashboard/<str:id>/', views.student_dashboard, name='s_db'),
-    path('s_sub_assign/<str:id>/<str:sub_id>', views.student_subject_assign, name='s_subject_assignment_list'),
-    path('s_assign_form/<str:stud_id>/<int:assign_id>', views.stud_assign_submit, name="submit_assign"),
 
+    path('s_dashboard/',include(([
+        path('s_logout/', views.s_logout, name="s_logout"),
+        path('<str:id>/', views.student_dashboard, name='s_db'),
+        path('s_sub_assign/<str:id>/<str:sub_id>', views.student_subject_assign, name='s_subject_assignment_list'),
+        path('s_assign_form/<str:id>/<int:assign_id>', views.stud_assign_submit, name="submit_assign"),
+    ],'studentapp'),namespace='student')),
 ]
 
 

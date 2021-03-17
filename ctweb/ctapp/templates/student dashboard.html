@@ -176,6 +176,15 @@ https://templatemo.com/tm-534-parallo
 
             </div>     
         </section>
+          <h1>Example</h1>
+          {{student.name}}<br>
+          {{student.branch}}<br>
+          {% for subject in subject_list%}
+          <h1>{{subject.subject_code}}</h1>
+          <h2>{{subject.name}}</h2>
+          <a href="{% url 'student:s_subject_assignment_list' '0103IT181055' 'IT-602' %}">click here</a>
+
+          {% endfor %}
 
         <!-- Page footer -->
         <footer class="row">

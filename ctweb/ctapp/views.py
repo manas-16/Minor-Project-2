@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import StudentForm
 from .forms import TeacherForm
+from django.urls import reverse
 
 # Create your views here.
 def index(request):
@@ -111,14 +112,17 @@ def student_login(request):
     if request.method=="POST":
         username = request.POST["username"]
         password = request.POST["password"]
+        print(username,password)
         user = auth.authenticate(username=username,password=password)
         if user is not None:
+            print("correct")
             auth.login(request,user)
-            id = student.objects.get(user=user)
-            return HttpResponseRedirect('/s_dash/%s/' % id)
+            stud = student.objects.get(user=user)
+            return HttpResponseRedirect('/s_dashboard/%s/' % stud.enrollment_number)
             #url = reverse('t_dash', kwargs={'id': id})
             #return HttpResponseRedirect(url)
         else:
+            print("wrong")
             messages.info(request,"Invalid Credentials")
             return redirect('/s_login')
     else:
@@ -143,7 +147,8 @@ def student_signup(request):
 
 @login_required(login_url='s_login/')
 def student_dashboard(request,id):
-    template = loader.get_template('index.html')
+    template = loader.get_template('student dashboard.html')
+    print(id)
     current_student = student.objects.get(enrollment_number=id)
     subjects = get_subjects(current_student)
     context = {'student':current_student,'subject_list':subjects}
@@ -152,17 +157,22 @@ def student_dashboard(request,id):
 
 @login_required(login_url='s_login/')
 def student_subject_assign(request,id,sub_id):           # to list assignements given subject and class
-    template = loader.get_template('index.html')
+    template = loader.get_template('student_dashboard_subject_assignments.html')
     current_student = student.objects.get(enrollment_number=id)
     current_subject = subject.objects.get(subject_code=sub_id)
     assignment = get_assignments(current_student,current_subject)
-    context = {'student':current_student,'assignement_list':assignment,"subject":subject}
+    context = {'student':current_student,'assignment_list':assignment,"subject":current_subject}
     return HttpResponse(template.render(context, request))
 
 
 @login_required(login_url='s_login/')
-def stud_assign_submit(request,stud_id,assign_id):
-    pass
+def stud_assign_submit(request,id,assign_id):
+    current_student = student.objects.get(enrollment_number=id)
+    assignment_current = assignment.objects.get(id=assign_id)
+    template = loader.get_template('student_dashboard_assignment_upload.html')
+    context = {'student':current_student,'assignment':assignment_current}
+    return HttpResponse(template.render(context, request))
+
 
 
 
@@ -186,9 +196,9 @@ def get_classes(teacher):
 def get_assignments(student,subject):
     sem = student.sem
     sec = student.sec
-    curr_class = Class.objects.filter(sem=sem).filter(sec=sec)
-    curr_teacher = teacher_assign.objects.filter(c_id=curr_class).filter(s_id=subject)
-    return assignment.objects.filter(c_id=curr_class).filter(s_id=subject).filter(t_id=curr_teacher)
+    curr_class = Class.objects.filter(sem=sem).get(sec=sec)
+    curr_teacher = teacher_assign.objects.filter(c_id=curr_class).get(s_id=subject)
+    return assignment.objects.filter(c_id=curr_class).filter(s_id=subject)
 
 
 def get_assignment_teacher(current_subject,current_class,current_teacher):
