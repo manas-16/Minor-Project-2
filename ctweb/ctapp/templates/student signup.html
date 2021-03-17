@@ -73,10 +73,13 @@ https://templatemo.com/tm-534-parallo
      
 
         <section class="row tm-contact-row">
-            <div class="col-lg-6 tm-contact-col-left">
+		<div class="col-lg-3 tm-contact-col-left">
+		</div>
+            <div class="col-lg-6 tm-contact-col-center">
                 <form action="#" method="POST" id="tmContactForm" class="tm-bg-black-transparent tm-contact-form">
-				<p style="font-size:70%;">New User?</p>
-				<h1 class="text-uppercase tm-services-page-title tm-testimonials-page-title">Register</h1>
+				<p style="font-size:70%;" align="center">New User?</p>
+				<h1 class="text-uppercase tm-services-page-title tm-testimonials-page-title" align="center">Register</h1>
+				&nbsp;
                   <!-- <div class="form-group">
                     <input type="text" id="contact_name" name="contact_name" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Name" required="">
                   </div>
@@ -89,18 +92,24 @@ https://templatemo.com/tm-534-parallo
 				  <div class="form-group">
                     <input type="password" id="contact_pass" name="contact_pass" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Password" required="">
                   </div> -->
-
+                  <table>
                   {% csrf_token %}
-                  {{ form.as_p }}
-                  
+                  {{ form.as_table }}
+                  </table>
+				  &nbsp;&nbsp;
                   <div class="text-right">
                     <button type="submit" class="btn btn-primary tm-btn-submit rounded-0">
                       Submit
                     </button>
-                    <a href="{% url 's_login' %}">User already? Login</a>
+					</div>
+					
+					<div class="text-right">
+                    <a style="font-size:80%;" href="{% url 's_login' %}">User already? Login</a>
                   </div>
                 </form>
             </div>
+			<div class="col-lg-3 tm-contact-col-right">
+			</div>
         </section>
 
         <!-- Call to Action -->
