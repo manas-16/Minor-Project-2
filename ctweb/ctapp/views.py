@@ -136,7 +136,7 @@ def student_signup(request):
     form = StudentForm()
 
     if request.method == 'POST':
-        form = TeacherForm(request.POST)
+        form = StudentForm(request.POST)
         if form.is_valid():
             form.save()
 

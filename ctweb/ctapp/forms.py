@@ -5,7 +5,7 @@ from .models import teacher
 class StudentForm(ModelForm):
     class Meta:
         model = student
-        fields = {'user', 'enrollment_number' , 'name' , 'college_name' , 'sem' , 'sec' , 'branch' , 'mobile_no' , 'email'}
+        fields = '__all__'
         '''
         widgets = {
         'user' : ModelForm.TextInput(attrs={'class': 'form-control'}),
