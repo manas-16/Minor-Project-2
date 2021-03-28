@@ -75,13 +75,76 @@ https://templatemo.com/tm-534-parallo
                        </p>
                    </div>
                </div>
-        </div>   
-        {{student.name}}
-        {{student.enrollment_number}}
-        <br>
+            </div>  
+            <div class="tm-tab-contents">
+                    <div id="first-tab-group" class="tabgroup">
+                        <div id="tab1">                            
+                            <div class="text-content">
+                              {% for a in assignment_list %}
+                              <h1>{{a.topic}}</h1>
+                              <h2>{{a.last_date}}</h2>
+                              <a href="{% url 'student:submit_assign' student.enrollment_number a.id%}">upload</a>
+                              {% endfor %}
+                            </div>
+                        </div>
+						<!-- <div id="tab2">                            
+                            <div class="text-content">
+                                <h3 class="tm-service-tab-title">Wireless and Mobile Computing </h3>
+                                <p class="tm-service-tab-p">Assignment 1
+                                </p>                            
+                                <p class="mb-0">
+                                    Assignment 2
+                                </p>
+                            </div>
+                        </div>
+                        <div id="tab3">                            
+                            <div class="text-content">
+                                <h3 class="tm-service-tab-title">Compiler Design</h3>
+                                <p class="tm-service-tab-p">Assignment 1
+                                </p>                            
+                                <p class="mb-0">
+                                    Assignment 2
+                                </p>
+                            </div>
+                        </div>
+						<div id="tab4">                            
+                            <div class="text-content">
+                                <h3 class="tm-service-tab-title">Software Engineering</h3>
+                                <p class="tm-service-tab-p">Assignment 1
+                                </p>                            
+                                <p class="mb-0">
+                                    Assignment 2
+                                </p>
+                            </div>
+                        </div>
+						<div id="tab5">                            
+                            <div class="text-content">
+                                <h3 class="tm-service-tab-title">Android Programming</h3>
+                                <p class="tm-service-tab-p">Assignment 1
+                                </p>                            
+                                <p class="mb-0">
+                                    Assignment 2
+                                </p>
+                            </div>
+                        </div>
+						<div id="tab6">                            
+                            <div class="text-content">
+                                <h3 class="tm-service-tab-title">Minor Project</h3>
+                                <p class="tm-service-tab-p">Assignment 1
+                                </p>                            
+                                <p class="mb-0">
+                                    Assignment 2
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>      
         {{subject.name}}
         {{subject.subject_code}}
-
+ -->
 
         {% for a in assignment_list %}
         <h1>{{a.topic}}</h1>
