@@ -82,7 +82,7 @@ https://templatemo.com/tm-534-parallo
               <div class="tm-tab-links">
                     <ul class="tabs clearfix" data-tabgroup="first-tab-group">
                       {% for subject in subject_list%}
-                        <li><a class="active" href="{% url 'student:s_subject_assignment_list' 'student.enrollment_number' 'subject.subject_code' %}">
+                        <li><a class="active" href="{% url 'student:s_subject_assignment_list' student.enrollment_number subject.subject_code %}">
                             <div class="icon-wrap"><i class="fas fa-2x fa-leaf"></i></div>
                             {{subject.subject_code}}
                             {{subject.name}}
@@ -110,73 +110,7 @@ https://templatemo.com/tm-534-parallo
                         </a></li>-->						
                     </ul>
                 </div>  
-                <div class="tm-tab-contents">
-                    <div id="first-tab-group" class="tabgroup">
-                        <div id="tab1">                            
-                            <div class="text-content">
-                                <h3 class="tm-service-tab-title">Computer Graphics and Multimedia</h3>
-                                <p class="tm-service-tab-p">Assignment 1
-                                </p>                            
-                                <p class="mb-0">
-                                    Assignment 2
-                                </p>
-                            </div>
-                        </div>
-						<div id="tab2">                            
-                            <div class="text-content">
-                                <h3 class="tm-service-tab-title">Wireless and Mobile Computing </h3>
-                                <p class="tm-service-tab-p">Assignment 1
-                                </p>                            
-                                <p class="mb-0">
-                                    Assignment 2
-                                </p>
-                            </div>
-                        </div>
-                        <div id="tab3">                            
-                            <div class="text-content">
-                                <h3 class="tm-service-tab-title">Compiler Design</h3>
-                                <p class="tm-service-tab-p">Assignment 1
-                                </p>                            
-                                <p class="mb-0">
-                                    Assignment 2
-                                </p>
-                            </div>
-                        </div>
-						<div id="tab4">                            
-                            <div class="text-content">
-                                <h3 class="tm-service-tab-title">Software Engineering</h3>
-                                <p class="tm-service-tab-p">Assignment 1
-                                </p>                            
-                                <p class="mb-0">
-                                    Assignment 2
-                                </p>
-                            </div>
-                        </div>
-						<div id="tab5">                            
-                            <div class="text-content">
-                                <h3 class="tm-service-tab-title">Android Programming</h3>
-                                <p class="tm-service-tab-p">Assignment 1
-                                </p>                            
-                                <p class="mb-0">
-                                    Assignment 2
-                                </p>
-                            </div>
-                        </div>
-						<div id="tab6">                            
-                            <div class="text-content">
-                                <h3 class="tm-service-tab-title">Minor Project</h3>
-                                <p class="tm-service-tab-p">Assignment 1
-                                </p>                            
-                                <p class="mb-0">
-                                    Assignment 2
-                                </p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>     
+                
         </section>
           <h1>Example</h1>
           {{student.name}}<br>
