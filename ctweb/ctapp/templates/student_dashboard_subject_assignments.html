@@ -81,9 +81,11 @@ https://templatemo.com/tm-534-parallo
                         <div id="tab1">                            
                             <div class="text-content">
                               {% for a in assignment_list %}
-                              <h1>{{a.topic}}</h1>
-                              <h2>{{a.last_date}}</h2>
+                              <h1>Topic: {{a.topic}}</h1><h2> Last Date: {{a.last_date}}</h2>
                               <a href="{% url 'student:submit_assign' student.enrollment_number a.id%}">upload</a>
+                                <br>
+                                <br>
+                                <br>
                               {% endfor %}
                             </div>
                         </div>
@@ -145,13 +147,13 @@ https://templatemo.com/tm-534-parallo
         {{subject.name}}
         {{subject.subject_code}}
  -->
-
+<!--
         {% for a in assignment_list %}
         <h1>{{a.topic}}</h1>
         <h2>{{a.last_date}}</h2>
         <a href="{% url 'student:submit_assign' student.enrollment_number a.id%}">upload</a>
         {% endfor %}
-
+-->
          <!-- Page footer -->
          <footer class="row">
             <p class="col-12 text-white text-center tm-copyright-text">
