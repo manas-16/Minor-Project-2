@@ -46,9 +46,11 @@ class subject(models.Model):
 
 
 class Class(models.Model):
+    timetable = models.ImageField(upload_to='Time Tables/',default="6a.jpg")
     sem = models.CharField(max_length = 20,choices = SEMESTER_CHOICES,default = '6')
     sec = models.CharField(max_length = 1,choices = SEC_CHOICES,default = 'A')
     branch= models.CharField(max_length = 20,choices = BRANCH_CHOICES,default = 'IT')
+
 
     def __str__(self):
         return str(self.sem)+" "+str(self.sec)+" - "+str(self.branch)
@@ -65,6 +67,7 @@ class teacher_assign(models.Model):
         return sem_sec+" - "+s_name+' - ' + t_name
 
 class assignment(models.Model):
+    #assignfile = models.FileField(upload_to='uploads/TimeTable',default=None)
     c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)       #class id
     s_id = models.ForeignKey(subject,on_delete=models.CASCADE)  #subject id
     t_id = models.ForeignKey(teacher,on_delete=models.CASCADE)  #teacher id
@@ -77,19 +80,33 @@ class assignment(models.Model):
         return sem_sec+" - "+s_name+' - ' + str(self.topic)
 
 
+
+
+
+
 #to get separate folder for each assignment
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
     cclass = str(instance.a_id.c_id.sem) + "_" + str(instance.a_id.c_id.sec)
     sub = str(instance.a_id.s_id.name)
     top = str(instance.a_id.topic)
+    return 'Assignments/class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,filename)
+
+#to get separate folder for each assignment created
+"""
+def userpath(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
+    cclass = str(instance.a_id.c_id.sem) + "_" + str(instance.a_id.c_id.sec)
+    sub = str(instance.a_id.s_id.name)
+    top = str(instance.a_id.topic)
     return 'class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,filename)
+"""
 
 
 
 class student_submission(models.Model):
     a_id = models.ForeignKey(assignment,on_delete=models.CASCADE)
-    stud_id = models.ForeignKey(student,on_delete=models.CASCADE)
+    stud_id = models.ForeignKey(student,on_delete=models.CASCADE,unique=True)
     file = models.FileField(upload_to =user_directory_path)
 
     def __str__(self):
@@ -97,6 +114,7 @@ class student_submission(models.Model):
         topic = str(self.a_id.topic)  #topic name
         sem_sec = str((self.a_id.c_id.sem))+"TH - "+str((self.a_id.c_id.sec))
         return str(self.stud_id.enrollment_number)+" - "+sem_sec+" - "+ s_name + " - "+ str(topic)
+
 
 
 

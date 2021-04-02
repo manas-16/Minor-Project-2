@@ -1,11 +1,14 @@
 from django.forms import ModelForm
 from .models import student
-from .models import teacher
+from .models import teacher,assignment,student_submission
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 
 class StudentForm(ModelForm):
     class Meta:
         model = student
-        fields = '__all__'
+        fields = ["enrollment_number", "name", "college_name", "email", 'sem', 'sec','branch','mobile_no']
         '''
         widgets = {
         'user' : ModelForm.TextInput(attrs={'class': 'form-control'}),
@@ -19,7 +22,20 @@ class StudentForm(ModelForm):
         'email' : ModelForm.TextInput(attrs={'class': 'form-control'}),
         }
 '''
+
+class UserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username','password1', 'password2', )
+
 class TeacherForm(ModelForm):
     class Meta:
+        model = assignment
+        fields = ["topic","last_date"]
+
+"""
+class AssignCreateForm(ModelForm):
+    class Meta:
         model = teacher
-        fields = '__all__'
+        fields = ["name", "college_name", "email", 'branch','mobile_no']
+        """

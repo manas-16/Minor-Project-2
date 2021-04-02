@@ -7,7 +7,7 @@ from django.shortcuts import redirect,HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import StudentForm
-from .forms import TeacherForm
+from .forms import TeacherForm,UserForm
 from django.urls import reverse
 
 # Create your views here.
@@ -29,10 +29,11 @@ def teacher_login(request):
         user = auth.authenticate(username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            id = teacher.objects.get(user=user)
-            return HttpResponseRedirect('/t_dash/%s/' % id)
-            #url = reverse('t_dash', kwargs={'id': id})
-            #return HttpResponseRedirect(url)
+            tobj = teacher.objects.get(user=user)
+            #print(id,username,password)
+            #return HttpResponseRedirect('/t_dashboard/%d/' % tobj.id)
+            url = reverse('teacher:t_db', kwargs={'id': tobj.id})
+            return HttpResponseRedirect(url)
         else:
             messages.info(request,"Invalid Credentials")
             return redirect('/t_login')
@@ -44,24 +45,28 @@ def teacher_login(request):
 
 
 def teacher_signup(request):
-
-    form = TeacherForm()
-
     if request.method == 'POST':
+        uform = UserForm(request.POST)
         form = TeacherForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        context = {'form': form}
-        template = loader.get_template('teacher signup.html')
-        return HttpResponse(template.render(context, request))
+        if uform.is_valid():
+            user = uform.save()
+            if form.is_valid():
+                new_teacher = form.save(commit=False)
+                new_teacher.user = user
+                new_teacher.save()
+                print(new_teacher)
+    form = TeacherForm()
+    uform = UserForm()
+    context = {'form': form,'uform':uform}
+    template = loader.get_template('student signup.html')
+    return HttpResponse(template.render(context, request))
 
 
 
 
 @login_required(login_url='t_login/')
 def teacher_dashboard(request,id):
-    template = loader.get_template('index.html')
+    template = loader.get_template('index.html')#update it!!!!!!!!
     current_teacher = teacher.objects.get(id=id)
     assigned_classes = get_classes(current_teacher)
     context = {'teacher':current_teacher,'class_list':assigned_classes}
@@ -132,15 +137,19 @@ def student_login(request):
 
 
 def student_signup(request):
-
-    form = StudentForm()
-
     if request.method == 'POST':
+        uform = UserForm(request.POST)
         form = StudentForm(request.POST)
-        if form.is_valid():
-            form.save()
-
-    context = {'form': form}
+        if uform.is_valid():
+            user = uform.save()
+            if form.is_valid():
+                new_student = form.save(commit=False)
+                new_student.user = user
+                new_student.save()
+                print(new_student)
+    form = StudentForm()
+    uform = UserForm()
+    context = {'form': form,'uform':uform}
     template = loader.get_template('student signup.html')
     return HttpResponse(template.render(context, request))
 
