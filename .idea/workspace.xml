@@ -3,15 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c8bdacce-e3c3-45ec-8498-3b9b792607c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/Assignments/class_6_A/WIRELESS AND MOBILE COMM/tes2/Android_Experiment1.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctweb/ctapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/templates/student signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/templates/student signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/templates/teacher login.html" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/templates/teacher login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/templates/teacher signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/templates/teacher signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctweb/ctapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctweb/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctweb/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ctweb/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/db.sqlite3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

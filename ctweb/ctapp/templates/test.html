@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+{% for test in Test %}
+{{test.c_id.sem}}<br>
+{{test.c_id.branch}}<br>
+{{test.c_id.sec}}<br>
+{{test.t_id.name}}<br>
+{{test.date}}<br>
+{{test.starttime}} {{test.endtime}}<br>
+{{test.topic}}<br><br><br><br><br><br><br>
+
+{{test.link|safe}}
+
+{% endfor %}
+</body>
+</html>

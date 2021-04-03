@@ -66,6 +66,8 @@ class teacher_assign(models.Model):
         sem_sec = str(self.c_id.sem) + "TH - " + str(self.c_id.sec)
         return sem_sec+" - "+s_name+' - ' + t_name
 
+
+
 class assignment(models.Model):
     #assignfile = models.FileField(upload_to='uploads/TimeTable',default=None)
     c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)       #class id
@@ -106,7 +108,7 @@ def userpath(instance, filename):
 
 class student_submission(models.Model):
     a_id = models.ForeignKey(assignment,on_delete=models.CASCADE)
-    stud_id = models.ForeignKey(student,on_delete=models.CASCADE,unique=True)
+    stud_id = models.ForeignKey(student,on_delete=models.CASCADE)
     file = models.FileField(upload_to =user_directory_path)
 
     def __str__(self):
@@ -115,6 +117,21 @@ class student_submission(models.Model):
         sem_sec = str((self.a_id.c_id.sem))+"TH - "+str((self.a_id.c_id.sec))
         return str(self.stud_id.enrollment_number)+" - "+sem_sec+" - "+ s_name + " - "+ str(topic)
 
+
+class Test(models.Model):
+    topic = models.CharField(max_length=50)
+    link = models.CharField(max_length=1000)
+    c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)       #class id
+    s_id = models.ForeignKey(subject,on_delete=models.CASCADE)  #subject id
+    t_id = models.ForeignKey(teacher,on_delete=models.CASCADE)  #teacher id
+    date = models.DateField()
+    starttime = models.TimeField(auto_now=False,auto_now_add=False)
+    endtime = models.TimeField(auto_now=False,auto_now_add=False)
+
+    def __str__(self):
+        s_name = str(self.s_id.name)     #get subject name
+        sem_sec = str(self.c_id.branch) + " - " +str(self.c_id.sem)+"TH - "+str(self.c_id.sec)
+        return sem_sec+" - "+s_name+' - ' + str(self.topic)
 
 
 
