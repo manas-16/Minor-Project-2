@@ -7,12 +7,12 @@ from django.shortcuts import redirect,HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import StudentForm
-from .forms import TeacherForm,UserForm
+from .forms import TeacherForm,UserForm,AssignCreateForm,AssignSubmitForm
 from django.urls import reverse
 
 # Create your views here.
 def index(request):
-    template = loader.get_template('test.html')# change to index.html
+    template = loader.get_template('index.html')# change to index.html
     teachers = teacher_assign.objects.all()
     st = student.objects.all()
     subjects = subject.objects.all()
@@ -180,8 +180,18 @@ def student_subject_assign(request,id,sub_id):           # to list assignements 
 def stud_assign_submit(request,id,assign_id):
     current_student = student.objects.get(enrollment_number=id)
     assignment_current = assignment.objects.get(id=assign_id)
+    if request.method=="POST":
+        form = AssignSubmitForm(request.POST,request.FILES)
+        #print(form.is_valid(),form.data)
+        if form.is_valid():
+            new_submission = form.save(commit=False)
+            new_submission.stud_id = current_student
+            new_submission.a_id = assignment_current
+            new_submission.save()
+            print(new_submission,'successful!!!!!!!')
     template = loader.get_template('student_dashboard_assignment_upload.html')
-    context = {'student':current_student,'assignment':assignment_current}
+    form = AssignSubmitForm()
+    context = {'student':current_student,'assignment':assignment_current,'form':form}
     return HttpResponse(template.render(context, request))
 
 

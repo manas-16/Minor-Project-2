@@ -30,12 +30,20 @@ class UserForm(UserCreationForm):
 
 class TeacherForm(ModelForm):
     class Meta:
-        model = assignment
-        fields = ["topic","last_date"]
-
-"""
-class AssignCreateForm(ModelForm):
-    class Meta:
         model = teacher
         fields = ["name", "college_name", "email", 'branch','mobile_no']
-        """
+
+
+class AssignSubmitForm(ModelForm):
+    class Meta:
+        model = student_submission
+        fields = ["file"]
+
+class AssignCreateForm(ModelForm):
+    class Meta:
+        model = assignment
+        fields = ["topic","last_date","assignfile"]
+
+
+
+

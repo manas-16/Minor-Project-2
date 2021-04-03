@@ -66,10 +66,17 @@ class teacher_assign(models.Model):
         sem_sec = str(self.c_id.sem) + "TH - " + str(self.c_id.sec)
         return sem_sec+" - "+s_name+' - ' + t_name
 
+#to get separate folder for each assignment created
+def get_directory_for_assignment_details(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
+    cclass = str(instance.c_id.sem) + "_" + str(instance.c_id.sec)
+    sub = str(instance.s_id.name)
+    top = str(instance.topic)
+    return 'Assignments/class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,filename)
 
 
 class assignment(models.Model):
-    #assignfile = models.FileField(upload_to='uploads/TimeTable',default=None)
+    assignfile = models.FileField(upload_to=get_directory_for_assignment_details,default="p.pdf")
     c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)       #class id
     s_id = models.ForeignKey(subject,on_delete=models.CASCADE)  #subject id
     t_id = models.ForeignKey(teacher,on_delete=models.CASCADE)  #teacher id
@@ -82,10 +89,6 @@ class assignment(models.Model):
         return sem_sec+" - "+s_name+' - ' + str(self.topic)
 
 
-
-
-
-
 #to get separate folder for each assignment
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
@@ -94,15 +97,7 @@ def user_directory_path(instance, filename):
     top = str(instance.a_id.topic)
     return 'Assignments/class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,filename)
 
-#to get separate folder for each assignment created
-"""
-def userpath(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
-    cclass = str(instance.a_id.c_id.sem) + "_" + str(instance.a_id.c_id.sec)
-    sub = str(instance.a_id.s_id.name)
-    top = str(instance.a_id.topic)
-    return 'class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,filename)
-"""
+
 
 
 
@@ -135,7 +130,14 @@ class Test(models.Model):
 
 
 
-
+"""
+def userpath(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
+    cclass = str(instance.a_id.c_id.sem) + "_" + str(instance.a_id.c_id.sec)
+    sub = str(instance.a_id.s_id.name)
+    top = str(instance.a_id.topic)
+    return 'class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,filename)
+"""
 
 
 
