@@ -48,8 +48,13 @@ https://templatemo.com/tm-534-parallo
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav">
                     <li class="nav-item">
-                      <div class="tm-nav-link-highlight"></div>
-                        Subject: {{subject.name}}
+                      <a href="#assignments" class="btn btn-outline-dark">Pending: 1</a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{% url 'student:s_db' student.enrollment_number %}" class="btn btn-outline-dark">Go Back</a>
+                    </li>
+                    <li class="nav-item">
+                      <button type="button" class="btn btn-outline-dark">Logout</button>
                     </li>
                   </ul>
                 </div>
@@ -66,15 +71,15 @@ https://templatemo.com/tm-534-parallo
                     data-z-index="101"
                     data-image-src="{% static 'img/colors.jpg' %}">
    
-                    <div class="tm-bg-black-transparent text-center tm-services-header tm-testimonials-header">
+                    <div class="text-center tm-services-header tm-testimonials-header" style="background-color:#E3E3E3";>
                        <h2 class="tm-services-page-title tm-testimonials-page-title">Here's the list of assignments for:</h2>
-                       <p class="tm-services-description mb-0 small">
-                           {{student.name}}  
+                       <p class="tm-services-description mb-0">
+                           <b>{{subject.name}}  </b>
                        </p>
                    </div>
                </div>
             </div>  
-            <div class="tm-tab-contents">
+            <div class="tm-tab-contents" id="assignments">
                     <div id="first-tab-group" class="tabgroup">
                         <div id="tab1">                            
                             <div class="text-content">

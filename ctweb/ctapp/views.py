@@ -12,7 +12,7 @@ from django.urls import reverse
 
 # Create your views here.
 def index(request):
-    template = loader.get_template('test.html')# change to index.html
+    template = loader.get_template('index.html')# change to index.html
     teachers = teacher_assign.objects.all()
     st = student.objects.all()
     subjects = subject.objects.all()
@@ -162,7 +162,11 @@ def student_dashboard(request,id):
     print(id)
     current_student = student.objects.get(enrollment_number=id)
     subjects = get_subjects(current_student)
-    context = {'student':current_student,'subject_list':subjects}
+    tests=get_tests(current_student)
+    if tests:
+        context = {'student':current_student,'subject_list':subjects,'tests':tests,'error':''}
+    error='No tests assigned yet.'
+    context = {'student':current_student,'subject_list':subjects,'error':error}
     return HttpResponse(template.render(context, request))
 
 
@@ -217,6 +221,15 @@ def get_subjects(student):
 
 def get_classes(teacher):
     return teacher_assign.objects.filter(t_id=teacher)
+
+def get_tests(student):
+    try:
+        print("SEM",student.sem)
+        return Test.objects.filter(c_id=student.sem)
+    except Test.DoesNotExist:
+        return False
+    finally:
+        print()
 
 def get_assignments(student,subject):
     sem = student.sem

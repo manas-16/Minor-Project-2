@@ -66,8 +66,8 @@ small {
 }
 
 .tm-brand-container {
-  max-width: 400px;
-  height: 200px;
+  max-width: 500px;
+  height: 125px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,12 +86,12 @@ small {
 }
 
 .tm-brand-name {
-  font-size: 2.3rem;
+  font-size: 1.5rem;
   color: #333333;
 }
 
 /* Nav */
-.tm-navbar {/*   padding: 19px 63px; */max-width: 840px;min-height: 120px;justify-content:;}
+.tm-navbar {/*   padding: 19px 63px; */max-width: 840px;min-height: 125px;justify-content:;}
 
 .tm-navbar .navbar-nav {
   width: 100%;
@@ -373,11 +373,21 @@ p {
 .tm-about-title-hr {
   border-top-color: black;
   max-width: 450px;
-  margin-bottom:;
+  
 }
 
 .tm-bg-black-transparent {
-  background-color: rgba(15, 29, 32, 0.76);
+  background-color:  rgba(15, 29, 32, 0.77);
+  color: white;
+}
+.tm-bg-black {
+  background-color:  black;
+  color: white;
+}
+
+.tm-bg-brown-transparent {
+  background-color: #C07F5B;
+  opacity: 0.77;
   color: white;
 }
 
@@ -445,11 +455,20 @@ p {
 }
 
 .tm-app-feature-description-box {
-  color: black;
+  color: #2C3030;
 }
 
 .tm-app-feature-title {
   font-size: 2rem;
+}
+
+.cards{
+  height: 100%; width:100%; background-color:white; color:black; opacity:1; padding:30px;
+}
+
+#tests{
+  position: relative;
+  top:-40px;
 }
 
 /* Services */
@@ -543,8 +562,8 @@ p {
 }
 
 #first-tab-group > div {
-  background-color: white;
-  color: white;
+  background-color: #E3E3E3;
+  color: grey;
   padding: 45px 60px;
   min-height: 423px;
 }
