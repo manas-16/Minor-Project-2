@@ -12,7 +12,7 @@ from django.urls import reverse
 
 # Create your views here.
 def index(request):
-    template = loader.get_template('test.html')# change to index.html
+    template = loader.get_template('index.html')# change to index.html
     teachers = teacher_assign.objects.all()
     st = student.objects.all()
     subjects = subject.objects.all()
@@ -172,7 +172,11 @@ def student_subject_assign(request,id,sub_id):           # to list assignements 
     current_student = student.objects.get(enrollment_number=id)
     current_subject = subject.objects.get(subject_code=sub_id)
     assignment = get_assignments(current_student,current_subject)
-    context = {'student':current_student,'assignment_list':assignment,"subject":current_subject}
+    if assignment:
+         context = {'student':current_student,'assignment_list':assignment,'subject':current_subject,'error':''}
+    else:
+        error="No teacher is assigned for this subject yet."
+        context={'error':error,'student':current_student,'subject':current_subject}
     return HttpResponse(template.render(context, request))
 
 
@@ -217,13 +221,18 @@ def get_classes(teacher):
 def get_assignments(student,subject):
     sem = student.sem
     sec = student.sec
-    curr_class = Class.objects.filter(sem=sem).get(sec=sec)
-    curr_teacher = teacher_assign.objects.filter(c_id=curr_class).get(s_id=subject)
-    return assignment.objects.filter(c_id=curr_class).filter(s_id=subject)
-
+    try:
+        curr_class = Class.objects.filter(sem=sem).get(sec=sec)
+        curr_teacher = teacher_assign.objects.filter(c_id=curr_class).get(s_id=subject)
+        return assignment.objects.filter(c_id=curr_class).filter(s_id=subject)
+    except teacher_assign.DoesNotExist:
+        return False
 
 def get_assignment_teacher(current_subject,current_class,current_teacher):
-    return assignment.objects.filter(t_id=current_teacher).filter(c_id=current_class).filter(s_id=current_subject)
+    try:
+        return assignment.objects.filter(t_id=current_teacher).filter(c_id=current_class).filter(s_id=current_subject)
+    except teacher_assign.DoesNotExist:
+        return False
 
 
 

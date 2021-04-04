@@ -49,10 +49,8 @@ https://templatemo.com/tm-534-parallo
                   <ul class="navbar-nav">
                     <li class="nav-item">
                       <div class="tm-nav-link-highlight"></div>
-                      <a class="nav-link" href="{% url 'index' %}">
-                        Home</a>
+                        Subject: {{subject.name}}
                     </li>
-                    
                   </ul>
                 </div>
               </nav>
@@ -69,7 +67,7 @@ https://templatemo.com/tm-534-parallo
                     data-image-src="{% static 'img/ice-mountain.jpg' %}">
    
                     <div class="tm-bg-black-transparent text-center tm-services-header tm-testimonials-header">
-                       <h2 class="text-uppercase tm-services-page-title tm-testimonials-page-title">Assignments for</h2>
+                       <h2 class="tm-services-page-title tm-testimonials-page-title">Here's the list of assignments for:</h2>
                        <p class="tm-services-description mb-0 small">
                            {{student.name}}  
                        </p>
@@ -80,80 +78,24 @@ https://templatemo.com/tm-534-parallo
                     <div id="first-tab-group" class="tabgroup">
                         <div id="tab1">                            
                             <div class="text-content">
+                              {% if error != '' %}
+                              <h1>{{ error }}</h1>
+                              {% else %}
                               {% for a in assignment_list %}
-                              <h1>Topic: {{a.topic}}</h1><h2> Last Date: {{a.last_date}}</h2>
+                              <h1>{{a.topic}}</h1>
+                              <h2>{{a.last_date}}</h2>
                               <a href="{% url 'student:submit_assign' student.enrollment_number a.id%}">upload</a>
-                                <br>
-                                <br>
-                                <br>
                               {% endfor %}
-                            </div>
-                        </div>
-						<!-- <div id="tab2">                            
-                            <div class="text-content">
-                                <h3 class="tm-service-tab-title">Wireless and Mobile Computing </h3>
-                                <p class="tm-service-tab-p">Assignment 1
-                                </p>                            
-                                <p class="mb-0">
-                                    Assignment 2
-                                </p>
-                            </div>
-                        </div>
-                        <div id="tab3">                            
-                            <div class="text-content">
-                                <h3 class="tm-service-tab-title">Compiler Design</h3>
-                                <p class="tm-service-tab-p">Assignment 1
-                                </p>                            
-                                <p class="mb-0">
-                                    Assignment 2
-                                </p>
-                            </div>
-                        </div>
-						<div id="tab4">                            
-                            <div class="text-content">
-                                <h3 class="tm-service-tab-title">Software Engineering</h3>
-                                <p class="tm-service-tab-p">Assignment 1
-                                </p>                            
-                                <p class="mb-0">
-                                    Assignment 2
-                                </p>
-                            </div>
-                        </div>
-						<div id="tab5">                            
-                            <div class="text-content">
-                                <h3 class="tm-service-tab-title">Android Programming</h3>
-                                <p class="tm-service-tab-p">Assignment 1
-                                </p>                            
-                                <p class="mb-0">
-                                    Assignment 2
-                                </p>
-                            </div>
-                        </div>
-						<div id="tab6">                            
-                            <div class="text-content">
-                                <h3 class="tm-service-tab-title">Minor Project</h3>
-                                <p class="tm-service-tab-p">Assignment 1
-                                </p>                            
-                                <p class="mb-0">
-                                    Assignment 2
-                                </p>
+                              {% endif %}
                             </div>
                         </div>
 
-                    </div>
-                </div>
-
-            </div>      
-        {{subject.name}}
-        {{subject.subject_code}}
- -->
-<!--
         {% for a in assignment_list %}
         <h1>{{a.topic}}</h1>
         <h2>{{a.last_date}}</h2>
         <a href="{% url 'student:submit_assign' student.enrollment_number a.id%}">upload</a>
         {% endfor %}
--->
+
          <!-- Page footer -->
          <footer class="row">
             <p class="col-12 text-white text-center tm-copyright-text">
