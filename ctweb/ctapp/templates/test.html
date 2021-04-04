@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
 </head>
-<body>
+<body id="body">
 {% for test in Test %}
 {{test.c_id.sem}}<br>
 {{test.c_id.branch}}<br>
@@ -18,5 +18,136 @@
 {{test.link|safe}}
 
 {% endfor %}
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<video id="video" width="600" height="360" autoplay></video>
+<button id="snap">Snap Photo</button>
+<canvas id="canvas" width="600" height="360"></canvas>
+
+
+<button onclick="openFullscreen();">Open Fullscreen</button>
+<button onclick="closeFullscreen();">Close Fullscreen</button>
+
+
+
+
+<!--video recording logic-->
+
+<script>
+    var video = document.getElementById('video');
+
+// Get access to the camera!
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        //video.src = window.URL.createObjectURL(stream);
+        video.srcObject = stream;
+        video.play();
+    });
+}
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var video = document.getElementById('video');
+
+// Trigger photo take
+document.getElementById("snap").addEventListener("click", function() {
+	context.drawImage(video, 0, 0, 640, 480);
+});
+
+</script>
+
+
+<!--cut copy disabled-->
+    <script>
+      $(document).ready(function() {
+          $('body').bind('cut copy', function(e) {
+              e.preventDefault();
+            });
+        });
+    </script>
+
+
+<!--right click disabled-->
+<script>
+      $(document).ready(function() {
+          $("body").on("contextmenu", function(e) {
+              return false;
+            });
+        });
+    </script>
+
+
+<!--full screen logic
+<button onclick="openFullscreen();">Open Video in Fullscreen Mode</button>
+
+<script>
+    /* Get the documentElement (<html>) to display the page in fullscreen */
+var elem = document.getElementById("body");;
+
+/* View in fullscreen */
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+}
+
+/* Close fullscreen */
+function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) { /* Safari */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE11 */
+    document.msExitFullscreen();
+  }
+}
+
+</script>
+-->
+<script>
+   document.documentElement.requestFullscreen().catch((e) => {
+      console.log(e);
+   });
+</script>
+<!--event to start full screen   dblclick-->
+<script>
+   document.addEventListener('dblclick', () => {
+      document.documentElement.requestFullscreen().catch((e) => {
+         console.log(e);
+      });
+   });
+</script>
+
+
+<!--full screen using button-->
+<script>
+var elem = document.documentElement;
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+  }
+}
+
+function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) { /* Safari */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE11 */
+    document.msExitFullscreen();
+  }
+}
+</script>
 </body>
+
 </html>
