@@ -445,7 +445,7 @@ p {
 }
 
 .tm-app-feature-description-box {
-  color: #2C3030;
+  color: black;
 }
 
 .tm-app-feature-title {
@@ -543,7 +543,7 @@ p {
 }
 
 #first-tab-group > div {
-  background-color: rgba(15, 29, 32, 0.77);
+  background-color: white;
   color: white;
   padding: 45px 60px;
   min-height: 423px;
