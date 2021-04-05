@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import StudentForm
 from .forms import TeacherForm,UserForm,AssignCreateForm,AssignSubmitForm
 from django.urls import reverse
+import datetime
 
 # Create your views here.
 def index(request):
@@ -163,10 +164,13 @@ def student_dashboard(request,id):
     current_student = student.objects.get(enrollment_number=id)
     subjects = get_subjects(current_student)
     tests=get_tests(current_student)
+    print(tests)
+    now=current_datetime()
     if tests:
-        context = {'student':current_student,'subject_list':subjects,'tests':tests,'error':''}
+        context = {'student':current_student,'subject_list':subjects,'tests':tests,'error':'','cur_date':now}
+        return HttpResponse(template.render(context, request))
     error='No tests assigned yet.'
-    context = {'student':current_student,'subject_list':subjects,'error':error}
+    context = {'student':current_student,'subject_list':subjects,'error':error,'cur_date':now}
     return HttpResponse(template.render(context, request))
 
 
@@ -224,12 +228,10 @@ def get_classes(teacher):
 
 def get_tests(student):
     try:
-        print("SEM",student.sem)
-        return Test.objects.filter(c_id=student.sem)
+        curr_class = Class.objects.get(sem=student.sem,sec=student.sec,branch=student.branch)
+        return Test.objects.filter(c_id=curr_class)
     except Test.DoesNotExist:
         return False
-    finally:
-        print()
 
 def get_assignments(student,subject):
     sem = student.sem
@@ -246,6 +248,10 @@ def get_assignment_teacher(current_subject,current_class,current_teacher):
         return assignment.objects.filter(t_id=current_teacher).filter(c_id=current_class).filter(s_id=current_subject)
     except teacher_assign.DoesNotExist:
         return False
+
+def current_datetime():
+    now = datetime.datetime.now()
+    return now
 
 
 

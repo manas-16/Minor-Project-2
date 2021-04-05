@@ -116,7 +116,6 @@ class student_submission(models.Model):
 class Test(models.Model):
     topic = models.CharField(max_length=50)
     link = models.CharField(max_length=1000)
-    test_for_sem=models.CharField(max_length = 20,choices = SEMESTER_CHOICES,default = '6')
     c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)       #class id
     s_id = models.ForeignKey(subject,on_delete=models.CASCADE)  #subject id
     t_id = models.ForeignKey(teacher,on_delete=models.CASCADE)  #teacher id

@@ -51,7 +51,10 @@ https://templatemo.com/tm-534-parallo
                       Welcome&nbsp;&nbsp;{{student.name}}!
                     </li>
                     <li class="nav-item">
-                      <button type="button" class="btn btn-outline-dark">Logout</button>
+                      <button type="button" class="btn btn-outline-dark">{{ cur_date }}</button>
+                    </li>
+                    <li class="nav-item">
+                      <button type="button" class="btn btn-outline-dark" style="height: 105px;">Logout</button>
                     </li>
                   </ul>
                 </div>
@@ -63,15 +66,15 @@ https://templatemo.com/tm-534-parallo
         <!-- Services header -->
         <section class="row" id="tmServices">
          <div class="col-12">
-            <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header"
+            <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header tm-bg-white-transparent"
                  data-parallax="scroll"
                  data-z-index="101"
-                 style="background-color: #F2EBE7; opacity: 0.77;">
+                 >
                  <div class="tm-bg-brown-transparent text-center tm-services-header tm-testimonials-header">
                     <h2 class="text-uppercase tm-services-page-title tm-testimonials-page-title">Student Dashboard</h2>
                     <p class="btn btn-outline-light active">
                         College: {{student.college_name}}
-                  </p>
+                    </p>
                     <p class="btn btn-outline-light active">
                         Class: {{student.sem}} {{student.branch}} {{student.sec}} 
                     </p>
@@ -80,21 +83,23 @@ https://templatemo.com/tm-534-parallo
           </div>   
 
           <div class="col-12 tm-tabs-container">
-              <div style="background-color: #F1E7E2; opacity:0.85; display: inline-block; padding:10px; color:black;">
+              <div class="sections">
                 <h3>SUBJECTS:</h3>
                 <div class="card-deck">
                   {% for subject in subject_list%}
-                          <div class="card btn-outline" style="height:400px; width:312px; margin:5px; background-color:#C07F5B; opacity:0.77; color:aliceblue;">
+                          <div class="card btn-outline card-upper">
                             <div class="card-body text-center">
                               <div class="cards">
-                                <p class="card-text">
-                                  {{subject.subject_code}}
-                                </p>
-                                <p class="card-text">
-                                  {{subject.name}}
-                                </p>
+                                <div class="contents">
+                                  <p class="card-text">
+                                    {{subject.subject_code}}
+                                  </p>
+                                  <p class="card-text">
+                                    {{subject.name}}
+                                  </p>
+                                </div>
                                 <div class="card-text" style="position:relative; top:50px;">
-                                  <a class="btn btn-outline-dark" href="{% url 'student:s_subject_assignment_list' '0103IT181055' 'IT-602' %}">click here</a>
+                                  <a class="btn btn-outline-dark" href="{% url 'student:s_subject_assignment_list' student.enrollment_number subject.subject_code %}">Check</a>
                                 </div>
                               </div>
                             </div>
@@ -104,15 +109,33 @@ https://templatemo.com/tm-534-parallo
             </div> 			
           </div>   
           <div class="col-12" id="tests">
-            <div style="background-color: #F1E7E2; opacity:0.85; display: inline-block; padding:10px; color:black;">
-              <h3>TESTS:</h3>
-              <div class="card-deck" style="width: 600px; height:200px;">
+            <div class="sections">
+              <h3>TEST(S):</h3>
+              <div class="card-deck">
                 {% if error != '' %}
-                  <div class="card-body text-center">{{error}}</div>
+                <div class="card-body text-center">{{error}}</div>
                 {% else %}
                 {% for test in tests %}
-                {{test.t_id.name}}
-                {{test.date}}
+                  <div class="card btn-outline card-upper">
+                    <div class="card-body text-center">
+                      <div class="cards">
+                        <div class="contents">
+                          <p class="card-text">
+                            Topic: {{test.topic}}
+                          </p>
+                          <p class="card-text">
+                            {{test.t_id.name}}
+                          </p>
+                          <p class="card-text">
+                            {{test.date}}
+                          </p>
+                        </div>
+                        <div class="card-text" style="position:relative; top:50px;">
+                          <a class="btn btn-outline-dark" href="#">Give Test</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 {% endfor %}
                 {% endif %}
             </div> 

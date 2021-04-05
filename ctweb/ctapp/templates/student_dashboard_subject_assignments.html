@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}" />
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css' />
   
   </head>
 <!--
@@ -79,7 +80,44 @@ https://templatemo.com/tm-534-parallo
                    </div>
                </div>
             </div>  
-            <div class="tm-tab-contents" id="assignments">
+
+            <!--accordian-->
+            <div class="page-content page-container" id="page-content">
+              <div class="padding">
+                  <div class="row container d-flex justify-content-center">
+                      <div class="col-lg-6 grid-margin stretch-card">
+                          <div class="card">
+                              <div class="card-body">
+                                  <h4 class="card-title">Assignments:</h4>
+                                  <div class="mt-4">
+                                      <div class="accordion" id="accordion" role="tablist">
+                                        {% for a in assignment_list %}
+                                          <div class="card">
+                                              <div class="card-header" role="tab" id="heading-1">
+                                                  <h6 class="mb-0"><a data-toggle="collapse" href="#open" aria-expanded="false" aria-controls="collapse-1" data-abc="true" class="collapsed">{{a.topic}}</a></h6>
+                                              </div>
+                                              <div id="open" class="collapse" role="tabpanel" aria-labelledby="heading-1" data-parent="#accordion">
+                                                  <div class="card-body">
+                                                      <div class="row">
+                                                          <div class="col-3"> <img src="https://img.icons8.com/bubbles/100/000000/administrator-male.png" class="mw-100" alt="image"> </div>
+                                                          <div class="col-9">
+                                                              <p class="mb-0">{{a.last_date}}</p>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          {% endfor %} 
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!--accordian end-->
+            <!-- <div class="tm-tab-contents" id="assignments">
                     <div id="first-tab-group" class="tabgroup">
                         <div id="tab1">                            
                             <div class="text-content">
@@ -93,13 +131,13 @@ https://templatemo.com/tm-534-parallo
                               {% endfor %}
                               {% endif %}
                             </div>
-                        </div>
+                        </div> -->
 
-        {% for a in assignment_list %}
+        <!-- {% for a in assignment_list %}
         <h1>{{a.topic}}</h1>
         <h2>{{a.last_date}}</h2>
         <a href="{% url 'student:submit_assign' student.enrollment_number a.id%}">upload</a>
-        {% endfor %}
+        {% endfor %} -->
 
          <!-- Page footer -->
          <footer class="row">
