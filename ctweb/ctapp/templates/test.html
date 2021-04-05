@@ -5,7 +5,7 @@
     <title>Title</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
 </head>
-<body id="body">
+<body id="body" onload="openFullscreen()">
 {% for test in Test %}
 {{test.c_id.sem}}<br>
 {{test.c_id.branch}}<br>
@@ -48,7 +48,6 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 }
 
 window.onload = function() {
-    myFunction;
   openFullscreen;
 };
 
@@ -86,9 +85,11 @@ document.getElementById("snap").addEventListener("click", function() {
 
 <!--full screen logic
 <button onclick="openFullscreen();">Open Video in Fullscreen Mode</button>
+
 <script>
     /* Get the documentElement (<html>) to display the page in fullscreen */
 var elem = document.getElementById("body");;
+
 /* View in fullscreen */
 function openFullscreen() {
   if (elem.requestFullscreen) {
@@ -99,6 +100,7 @@ function openFullscreen() {
     elem.msRequestFullscreen();
   }
 }
+
 /* Close fullscreen */
 function closeFullscreen() {
   if (document.exitFullscreen) {
@@ -109,6 +111,7 @@ function closeFullscreen() {
     document.msExitFullscreen();
   }
 }
+
 </script>
 -->
 <script>
@@ -127,19 +130,6 @@ function closeFullscreen() {
 
 
 <!--full screen using button-->
-<script>
-function myFunction() {
-  var txt;
-  var r = confirm("Press a button!");
-  if (r == true) {
-    txt = "You pressed OK!";
-  } else {
-    txt = "You pressed Cancel!";
-  }
-  document.getElementById("demo").innerHTML = txt;
-}
-</script>
-<!--doesn't work without user permission-->
 <script>
 var elem = document.documentElement;
 function openFullscreen() {

@@ -13,7 +13,7 @@ import datetime
 
 # Create your views here.
 def index(request):
-    template = loader.get_template('test.html')# change to index.html
+    template = loader.get_template('index.html')# change to index.html
     teachers = teacher_assign.objects.all()
     st = student.objects.all()
     subjects = subject.objects.all()
