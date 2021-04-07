@@ -245,7 +245,7 @@ small {
 }
 
 .tm-feature-name {
-  color: black;
+  color: rgb(228, 198, 198);
   margin-bottom: 50px;
 }
 
@@ -489,6 +489,14 @@ p {
 #tests{
   position: relative;
   top:-40px;
+}
+
+.black{
+  color:black;
+}
+
+.text-center{
+  align-self: center;
 }
 
 /*Accordian*/
