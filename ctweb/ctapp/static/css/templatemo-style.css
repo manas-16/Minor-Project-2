@@ -58,6 +58,10 @@ small {
 .tm-bg-white-transparent {
   background-color: rgba(255, 255, 255, 0.8);
 }
+.tm-bg-white {
+  background-color: rgba(255, 255, 255, 0.8);
+  opacity: 1;
+}
 
 .tm-brand-row {
   align-items: center;
@@ -526,7 +530,7 @@ p {
   height:500px;
   width:1260px;
   color:black;
-  opacity: 0.77;
+  opacity: 1;
 }
 
 .card {

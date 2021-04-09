@@ -240,6 +240,8 @@ def get_assignments(student,subject):
         curr_class = Class.objects.filter(sem=sem).get(sec=sec)
         curr_teacher = teacher_assign.objects.filter(c_id=curr_class).get(s_id=subject)
         return assignment.objects.filter(c_id=curr_class).filter(s_id=subject)
+    except assignment.DoesNotExist:
+        return 'No assignments'.list()
     except teacher_assign.DoesNotExist:
         return False
 

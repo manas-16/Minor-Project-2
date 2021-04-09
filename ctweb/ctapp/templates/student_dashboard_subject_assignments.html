@@ -102,6 +102,7 @@ https://templatemo.com/tm-534-parallo
                                                           <div class="col-3"> <img src="https://img.icons8.com/bubbles/100/000000/administrator-male.png" class="mw-100" alt="image"> </div>
                                                           <div class="col-9">
                                                               <p class="mb-0">{{a.last_date}}</p>
+                                                              <a href="{% url 'student:submit_assign' student.enrollment_number a.id%}" class="btn btn-outline-dark">Upload</a>
                                                           </div>
                                                       </div>
                                                   </div>
