@@ -69,7 +69,7 @@ def teacher_signup(request):
 
 @login_required(login_url='t_login/')
 def teacher_dashboard(request,id):
-    template = loader.get_template('index.html')#update it!!!!!!!!
+    template = loader.get_template('teachers dashboard.html')#update it!!!!!!!!
     current_teacher = teacher.objects.get(id=id)
     assigned_classes = get_classes(current_teacher)
     context = {'teacher':current_teacher,'class_list':assigned_classes}
