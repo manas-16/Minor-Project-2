@@ -1,5 +1,4 @@
-
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,7 +25,7 @@ Topic: {{assignment.topic}}
     </div>
 
 </body>
-</html> -->
+</html> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -107,11 +106,46 @@ https://templatemo.com/tm-534-parallo
                     data-z-index="101"
                     data-image-src="{% static '' %}">
    
-                    <div class="tm-bg-white-transparent text-center tm-services-header tm-testimonials-header">
-                       <h2 class="tm-services-page-title tm-testimonials-page-title"></h2>
+                    <div class="tm-bg-white-transparent text-center tm-services-header tm-testimonials-header" id="upload">
+                       <h2 class="tm-services-page-title tm-testimonials-page-title">{{assignment.topic}}</h2>
                        <p class="tm-services-description mb-0 small">
-                           
+                           Instructions:
+                           <ul style="list-style-type:none;">
+                             <li>Mention your name and roll number on the top of the first page of every assignment.</li>
+                             <li>The file size should not be greater than 10MB.</li>
+                             <li>Mention page number of every page at the bottom.</li>
+                             <li>Name the file according to the format: assignmentNo_enrollmentNo_subject</li>
+                           </ul>
                        </p>
+                       <br><br>
+                       <div class="file-upload">
+                        <button class="file-upload-btn btn btn-outline-dark" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add File</button>
+                        <form action="{% url 'student:submit_assign' student.enrollment_number assignment.id%}" method="POST" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <!-- {{ form.as_p }} -->
+                        
+                        <div class="image-upload-wrap">
+                          <input class="file-upload-input" type='file' onchange="readURL(this);" accept=".pdf,.doc" />
+                          <div class="drag-text text-center">
+                            <h5>Drag and drop a file or select add file</h5>
+                          </div>
+                        </div>
+                        <div class="file-upload-content">
+                          <br>
+                          <p class="image-title"></p>
+                          <div class="image-title-wrap">
+                              <button type="button" onclick="removeUpload()" class="btn btn-outline-dark">Remove</button>&nbsp;<button type="submit" class="btn btn-outline-dark">Upload</button>
+                          </div>
+                        </div>
+                      </form>
+                      </div>
+
+                      <!-- <input type="file" id="myPdf" /><br>
+                      <canvas id="pdfViewer"></canvas> -->
+
+
+
+
                    </div>
                </div>
             </div>  
@@ -130,7 +164,44 @@ https://templatemo.com/tm-534-parallo
       <script src="{% static 'js/jquery.min.js' %}"></script>
       <script src="{% static 'js/parallax.min.js' %}"></script>
       <script src="{% static 'js/bootstrap.min.js' %}"></script>
-      <script>
+      <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+      <script type="text/javascript">
+          // Loaded via <script> tag, create shortcut to access PDF.js exports.
+            function readURL(input) {
+              if (input.files && input.files[0]) {
+            
+                var reader = new FileReader();
+            
+                reader.onload = function(e) {
+                  $('.image-upload-wrap').hide();
+            
+                  $('.file-upload-image').attr('src', e.target.result);
+                  $('.file-upload-content').show();
+            
+                  $('.image-title').html(input.files[0].name);
+                };
+            
+                reader.readAsDataURL(input.files[0]);
+            
+              } else {
+                removeUpload();
+              }
+            }
+            
+            function removeUpload() {
+              $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+              $('.file-upload-content').hide();
+              $('.image-upload-wrap').show();
+            }
+            $('.image-upload-wrap').bind('dragover', function () {
+                $('.image-upload-wrap').addClass('image-dropping');
+              });
+              $('.image-upload-wrap').bind('dragleave', function () {
+                $('.image-upload-wrap').removeClass('image-dropping');
+            });
+
           $(function(){
               $('.tabgroup > div').hide();
               $('.tabgroup > div:first-of-type').show();  
@@ -153,7 +224,6 @@ https://templatemo.com/tm-534-parallo
                 }              
               })  
           });
-          
       </script>
     </body>
   </html>
