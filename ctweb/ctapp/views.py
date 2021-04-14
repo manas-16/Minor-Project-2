@@ -194,7 +194,7 @@ def stud_assign_submit(request,id,assign_id):
     assignment_current = assignment.objects.get(id=assign_id)
     if request.method=="POST":
         form = AssignSubmitForm(request.POST,request.FILES)
-        #print(form.is_valid(),form.data)
+        print(form.is_valid(),form.data)
         if form.is_valid():
             new_submission = form.save(commit=False)
             new_submission.stud_id = current_student
