@@ -192,7 +192,7 @@ def student_subject_assign(request,id,sub_id):           # to list assignements 
 def stud_assign_submit(request,id,assign_id):
     current_student = student.objects.get(enrollment_number=id)
     assignment_current = assignment.objects.get(id=assign_id)
-    submit=get_status(current_student,assignment_current)
+    # submit=get_status(current_student,assignment_current)
     if request.method=="POST":
         form = AssignSubmitForm(request.POST,request.FILES)
         print(form.is_valid(),form.data)
@@ -204,7 +204,7 @@ def stud_assign_submit(request,id,assign_id):
             print(new_submission,'successful submission!')
     template = loader.get_template('student_dashboard_assignment_upload.html')
     form = AssignSubmitForm()
-    context = {'student':current_student,'assignment':assignment_current,'form':form,'submit':submit}
+    context = {'student':current_student,'assignment':assignment_current,'form':form}
     return HttpResponse(template.render(context, request))
 
 
@@ -256,13 +256,15 @@ def current_datetime():
     now = datetime.datetime.now()
     return now
 
-def get_status(sid,aid):
-    stud_id=student.objects.get(enrollment_number=s_id,name=s_id.name)
-    try:
-        stud_sub=student_submission.objects.get(a_id=a_id,stud_id=stud_id)
-        return ''
-    except student_submission.DoesNotExist:
-        return 'Not submitted'
+# def get_status(student,assignement):
+#     try:
+#         a_id=assignment.objects.get(c_id=assignment.c_id,s_id=assignment.s_id,topic=assignment.topic)
+#         stud_id=student.objects.get(enrollment_number=student.enrollment_number,name=student.name)
+#         stud_sub=student_submission.objects.get(a_id=a_id,stud_id=stud_id)
+#         print("Got it")
+#         return ''
+#     except student_submission.DoesNotExist:
+#         return 'Not submitted'
 
 
 
