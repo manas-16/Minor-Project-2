@@ -39,6 +39,7 @@ class AssignSubmitForm(ModelForm):
         model = student_submission
         fields = ["file"]
 
+
 class AssignCreateForm(ModelForm):
     class Meta:
         model = assignment

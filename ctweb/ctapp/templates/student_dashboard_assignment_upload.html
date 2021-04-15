@@ -1,36 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-Student Name: {{student.name}}
-<br><br><br>
-Topic: {{assignment.topic}}
-<br><br>
-
-    <div class="col-lg-6 tm-contact-col-center">
-        <form action="{% url 'student:submit_assign' student.enrollment_number assignment.id%}" method="POST" id="tmContactForm" class="tm-bg-black-transparent tm-contact-form" enctype="multipart/form-data">
-            <h5 class="text-uppercase tm-services-page-title tm-testimonials-page-title" align="left">Upload Your Assignment</h5>
-            <table>
-                {% csrf_token %}
-                {{ form.as_p }}
-            </table>
-
-            <div class="text-right">
-                <button type="submit" class="btn btn-primary tm-btn-submit rounded-0">Submit</button>
-            </div>
-        </form>
-    </div>
-
-</body>
-</html> 
 
 <!DOCTYPE html>
 <html lang="en">
 
 {% load static %}
+{% load widget_tweaks %}
 
   <head>
     <meta charset="UTF-8" />
@@ -78,7 +51,12 @@ https://templatemo.com/tm-534-parallo
                   <ul class="navbar-nav">
                     <li class="nav-item">
                       <div class="btn btn-outline-dark">
-                        Status: Not Submitted
+                        Status: 
+                        {% if submit !='' %}
+                        Not Submitted
+                        {% else %}
+                        Submitted
+                        {% endif %}
                       </div>
                     </li>
                     <li class="nav-item">
@@ -117,37 +95,19 @@ https://templatemo.com/tm-534-parallo
                              <li>Name the file according to the format: assignmentNo_enrollmentNo_subject</li>
                            </ul>
                        </p>
-                       <br><br>
-                       <div class="file-upload">
-                        <button class="file-upload-btn btn btn-outline-dark" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add File</button>
+                       <br>
                         <form action="{% url 'student:submit_assign' student.enrollment_number assignment.id%}" method="POST" enctype="multipart/form-data">
                           {% csrf_token %}
-                          <!-- {{ form.as_p }} -->
-                        
-                        <div class="image-upload-wrap">
-                          <input class="file-upload-input" type='file' onchange="readURL(this);" accept=".pdf,.doc" />
-                          <div class="drag-text text-center">
-                            <h5>Drag and drop a file or select add file</h5>
-                          </div>
-                        </div>
-                        <div class="file-upload-content">
-                          <br>
-                          <p class="image-title"></p>
-                          <div class="image-title-wrap">
-                              <button type="button" onclick="removeUpload()" class="btn btn-outline-dark">Remove</button>&nbsp;<button type="submit" class="btn btn-outline-dark">Upload</button>
-                          </div>
-                        </div>
-                      </form>
+                          {% render_field form.file type="file" class="" id="myPdf" %}
+                          <label for="myPdf">Choose file</label>
+                          <p id="filename"></p>
+                          <button type="submit" class="btn btn-primary tm-btn-submit rounded-0">Submit</button>
+                        </form>
                       </div>
-
-                      <!-- <input type="file" id="myPdf" /><br>
-                      <canvas id="pdfViewer"></canvas> -->
-
-
-
-
+                      <canvas id="pdfViewer"></canvas> 
                    </div>
                </div>
+               
             </div>  
 
 
@@ -169,38 +129,55 @@ https://templatemo.com/tm-534-parallo
       <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
       <script type="text/javascript">
           // Loaded via <script> tag, create shortcut to access PDF.js exports.
-            function readURL(input) {
-              if (input.files && input.files[0]) {
-            
-                var reader = new FileReader();
-            
-                reader.onload = function(e) {
-                  $('.image-upload-wrap').hide();
-            
-                  $('.file-upload-image').attr('src', e.target.result);
-                  $('.file-upload-content').show();
-            
-                  $('.image-title').html(input.files[0].name);
-                };
-            
-                reader.readAsDataURL(input.files[0]);
-            
-              } else {
-                removeUpload();
-              }
+            var pdfjsLib = window['pdfjs-dist/build/pdf'];
+          // The workerSrc property shall be specified.
+          pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+          $("#myPdf").on("change", function(e){
+            var file = e.target.files[0]
+            if(file.type == "application/pdf"){
+              var fileReader = new FileReader();  
+              fileReader.onload = function() {
+                var pdfData = new Uint8Array(this.result);
+                // Using DocumentInitParameters object to load binary data.
+                var loadingTask = pdfjsLib.getDocument({data: pdfData});
+                loadingTask.promise.then(function(pdf) {
+                  console.log('PDF loaded');
+                  
+                  // Fetch the first page
+                  var pageNumber = 1;
+                  pdf.getPage(pageNumber).then(function(page) {
+                  console.log('Page loaded');
+                  
+                  var scale = 1.5;
+                  var viewport = page.getViewport({scale: scale});
+
+                  // Prepare canvas using PDF page dimensions
+                  $('#pdfViewer').show();
+                  $('#filename').html(e.target.files[0].name);
+                  var canvas = $("#pdfViewer")[0];
+                  var context = canvas.getContext('2d');
+                  canvas.height = viewport.height;
+                  canvas.width = viewport.width;
+
+                  // Render PDF page into canvas context
+                  var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                  };
+                  var renderTask = page.render(renderContext);
+                  renderTask.promise.then(function () {
+                    console.log('Page rendered');
+                  });
+                  });
+                }, function (reason) {
+                  // PDF loading error
+                  console.error(reason);
+                });
+              };
+              fileReader.readAsArrayBuffer(file);
             }
-            
-            function removeUpload() {
-              $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-              $('.file-upload-content').hide();
-              $('.image-upload-wrap').show();
-            }
-            $('.image-upload-wrap').bind('dragover', function () {
-                $('.image-upload-wrap').addClass('image-dropping');
-              });
-              $('.image-upload-wrap').bind('dragleave', function () {
-                $('.image-upload-wrap').removeClass('image-dropping');
-            });
+          });
 
           $(function(){
               $('.tabgroup > div').hide();
