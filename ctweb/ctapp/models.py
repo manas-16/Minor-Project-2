@@ -76,12 +76,12 @@ def get_directory_for_assignment_details(instance, filename):
 
 
 class assignment(models.Model):
-    assignfile = models.FileField(upload_to=get_directory_for_assignment_details,default="p.pdf")
     c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)       #class id
     s_id = models.ForeignKey(subject,on_delete=models.CASCADE)  #subject id
     t_id = models.ForeignKey(teacher,on_delete=models.CASCADE)  #teacher id
     topic = models.CharField(max_length=50)
     last_date = models.DateField()
+    assignfile = models.FileField(upload_to=get_directory_for_assignment_details,default="p.pdf")
 
     def __str__(self):
         s_name = str(self.s_id.name)     #get subject name

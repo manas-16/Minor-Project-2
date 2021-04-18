@@ -534,6 +534,10 @@ p {
   align-self: center;
 }
 
+.assign_btn{
+
+}
+
 /*Accordian*/
 .flex {
   -webkit-box-flex: 1;
