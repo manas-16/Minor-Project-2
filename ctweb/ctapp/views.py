@@ -78,7 +78,7 @@ def teacher_dashboard(request,id):
 
 @login_required(login_url='t_login/')
 def teacher_subject_assign(request, id, t_assign_id):           # to list assignements given subject and class
-    template = loader.get_template('index.html')
+    template = loader.get_template('teacher dashboard assignments.html')
     current_teacher = teacher.objects.get(id=id)
     current_subject = t_assign_id.s_id
     current_class = t_assign_id.c_id
@@ -89,7 +89,7 @@ def teacher_subject_assign(request, id, t_assign_id):           # to list assign
 
 @login_required(login_url='t_login/')
 def teacher_assignment_submission(request,a_id):
-    template = loader.get_template('index.html')
+    template = loader.get_template('teacher dashboard examination.html')
     student_submission_list = student_submission.objects.filter(a_id=a_id)
     current_teacher = a_id.t_id
     context = {'teacher':current_teacher,'submission_list':student_submission_list}
@@ -207,8 +207,12 @@ def stud_assign_submit(request,id,assign_id):
     context = {'student':current_student,'assignment':assignment_current,'form':form}
     return HttpResponse(template.render(context, request))
 
-
-
+@login_required(login_url='s_login/')
+def stud_assign_download(request,id,assign_id):
+    filename=get_assign_file(assign_id)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
+    return response
 
 @login_required(login_url='s_login/')
 def s_logout(request):
@@ -255,6 +259,10 @@ def get_assignment_teacher(current_subject,current_class,current_teacher):
 def current_datetime():
     now = datetime.datetime.now()
     return now
+
+def get_assign_file(assign_id):
+    path=assignment.objects.filter(assign_id=assign_id)
+    return path.assignFile
 
 # def get_status(student,assignement):
 #     try:

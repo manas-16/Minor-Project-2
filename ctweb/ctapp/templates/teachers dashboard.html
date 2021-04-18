@@ -77,109 +77,34 @@ https://templatemo.com/tm-534-parallo
                 </div>
             </div>
           </div>   
-		  
-		  
           <div class="col-12 tm-tabs-container">
               <div class="sections">
-			  <h3>Class and Subject:</h3>
+			          <h3>Class and Subject:</h3>
                 <div class="card-deck">
-                  
+                  {% for class in class_list %}
                           <div class="btn-outline card-upper">
                             <div class="card-body text-center">
                               <div class="cards">
                                 <div class="contents">
                                   <p class="card-text">
-                                    IT-A
-                                  </p>
-								  <p class="card-text">
-                                    Semester-6
+                                    {{class.s_id.subject_code}}
                                   </p>
                                   <p class="card-text">
-                                    CGMM
+                                    {{class.s_id.name}}
                                   </p>
                                 </div>
                                 <div class="card-text" style="position:relative; top:0px;">
-                                  <a class="btn btn-outline-dark" href="{}">Assignment</a>
+                                  <a class="btn btn-outline-dark" href="{% url 'teacher:t_subject_assignment_list' teacher.id teacher. %}">Assignment</a>
 								  <br><br>
 								  <a class="btn btn-outline-dark" href="{}">Examination</a>
                                 </div>
                               </div>
                             </div>
                           </div>
-						  
-						   <div class="btn-outline card-upper">
-                            <div class="card-body text-center">
-                              <div class="cards">
-                                <div class="contents">
-                                  <p class="card-text">
-                                    IT-B
-                                  </p>
-								  <p class="card-text">
-                                    Semester-6
-                                  </p>
-                                  <p class="card-text">
-                                    Software Engineering
-                                  </p>
-                                </div>
-                                <div class="card-text" style="position:relative; top:0px;">
-                                  <a class="btn btn-outline-dark" href="{}">Assignment</a>
-								  <br><br>
-								  <a class="btn btn-outline-dark" href="{}">Examination</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-						  
-						  <div class="btn-outline card-upper">
-                            <div class="card-body text-center">
-                              <div class="cards">
-                                <div class="contents">
-                                  <p class="card-text">
-                                    IT-A
-                                  </p>
-								  <p class="card-text">
-                                    Semester-4
-                                  </p>
-                                  <p class="card-text">
-                                    DBMS
-                                  </p>
-                                </div>
-                                <div class="card-text" style="position:relative; top:0px;">
-                                  <a class="btn btn-outline-dark" href="{}">Assignment</a>
-								  <br><br>
-								  <a class="btn btn-outline-dark" href="{}">Examination</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-						  
-						  <div class="btn-outline card-upper">
-                            <div class="card-body text-center">
-                              <div class="cards">
-                                <div class="contents">
-                                  <p class="card-text">
-                                    IT-B
-                                  </p>
-								  <p class="card-text">
-                                    Semester-4
-                                  </p>
-                                  <p class="card-text">
-                                    DBMS
-                                  </p>
-                                </div>
-                                <div class="card-text" style="position:relative; top:0px;">
-                                  <a class="btn btn-outline-dark" href="{}">Assignment</a>
-								  <br><br>
-								  <a class="btn btn-outline-dark" href="{}">Examination</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                      
-              </div> 
-            </div> 			
-          </div>   
-                
+                    {% endfor %}
+                </div> 			
+              </div>   
+            </div>   
         </section>
        
 
