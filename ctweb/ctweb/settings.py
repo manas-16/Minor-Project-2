@@ -125,4 +125,5 @@ STATICFILES_DIRS = [
     BASE_DIR /'ctapp/static',
 ]
 STATIC_ROOT = os.path.join(Path(__file__).resolve().parent,'assets')
+MEDIA_URL='/College Files/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'College Files')
