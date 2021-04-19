@@ -77,12 +77,11 @@ def teacher_dashboard(request,id):
 
 
 @login_required(login_url='t_login/')
-def teacher_subject_assign(request, id, t_assign_id):           # to list assignements given subject and class
+def teacher_subject_assign(request, id, sub_id):           # to list assignements given subject and class
     template = loader.get_template('teacher dashboard assignments.html')
     current_teacher = teacher.objects.get(id=id)
-    current_subject = t_assign_id.s_id
-    current_class = t_assign_id.c_id
-    assignment_list = get_assignment_teacher(current_subject,current_class,current_teacher)
+    current_subject = sub_id
+    assignment_list = get_assignment_teacher(current_subject,current_teacher)
     context = {'teacher':current_teacher,'assignement_list':assignment_list,"subject":subject}
     return HttpResponse(template.render(context, request))
 
@@ -250,9 +249,9 @@ def get_assignments(student,subject):
     except teacher_assign.DoesNotExist:
         return False
 
-def get_assignment_teacher(current_subject,current_class,current_teacher):
+def get_assignment_teacher(current_subject,current_teacher):
     try:
-        return assignment.objects.filter(t_id=current_teacher).filter(c_id=current_class).filter(s_id=current_subject)
+        return assignment.objects.filter(t_id=current_teacher).filter(s_id=current_subject)
     except teacher_assign.DoesNotExist:
         return False
 
