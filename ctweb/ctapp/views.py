@@ -77,10 +77,11 @@ def teacher_dashboard(request,id):
 
 
 @login_required(login_url='t_login/')
-def teacher_subject_assign(request, id, sub_id):           # to list assignements given subject and class
+def teacher_subject_assign(request, id, sub_id,class_id):           # to list assignements given subject and class
     template = loader.get_template('teacher dashboard assignments.html')
+    print(id,sub_id,class_id)
     current_teacher = teacher.objects.get(id=id)
-    current_subject = sub_id
+    current_subject = subject.objects.get(subject_code=sub_id)
     assignment_list = get_assignment_teacher(current_subject,current_teacher)
     context = {'teacher':current_teacher,'assignement_list':assignment_list,"subject":subject}
     return HttpResponse(template.render(context, request))
