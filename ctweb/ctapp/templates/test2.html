@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+</head>
+<body>
+{% for test in Test %}
+{{test.c_id.sem}}<br>
+{{test.c_id.branch}}<br>
+{{test.c_id.sec}}<br>
+{{test.t_id.name}}<br>
+{{test.date}}<br>
+{{test.starttime}} {{test.endtime}}<br>
+{{test.topic}}<br><br><br><br><br><br><br>
+
+{{test.link|safe}}
+
+{% endfor %}
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content center-align">
+                <h4 class="center"><u>Live Video</u></h4>
+                <video id="video" width="600" height="450" autoplay></video>
+                <canvas id="canvas" width="600" height="450" class="hide"></canvas>
+                <button type="button" class="btn" id="start-stream" style="margin-bottom: 10px">Start Face Detection
+                </button>
+                <canvas id="detect-data" width="600" height="450"></canvas>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    var video = document.getElementById('video');
+
+    // Get access to the camera!
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+            //video.src = window.URL.createObjectURL(stream);
+            video.srcObject = stream;
+            video.play();
+        });
+    }
+        var socket = new WebSocket('ws://localhost:8001/websocket');
+        $(document).ready(function () {
+            let video = document.getElementById('video');
+            let canvas = document.getElementById('canvas');
+            let context = canvas.getContext('2d');
+            let draw_canvas = document.getElementById('detect-data');
+            let draw_context = draw_canvas.getContext('2d');
+            let image = new Image();
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({video: true}).then(function (stream) {
+                    video.srcObject = stream;
+                    video.play();
+                });
+            }
+
+            function drawCanvas() {
+                context.drawImage(video, 0, 0, 600, 450);
+                socket.send(canvas.toDataURL('image/png'));
+            }
+
+            document.getElementById("start-stream").addEventListener("click", function () {
+                socket.send("hello");
+                drawCanvas();
+            });
+
+            socket.onmessage = function (e) {
+                image.onload = function () {
+                    draw_context.drawImage(image, 0, 0, 600, 450);
+                };
+                image.src = e.data;
+                drawCanvas();
+            };
+        })
+    </script>
+
+
+
+End of video
+
+
+
+</body>
+
+</html>
+
+<!--
+    <div class="col s4">
+            <div class="collection">
+                <a href="" class="collection-item active">Simple Face Detection</a>
+                <a href="" class="collection-item">Live Face Detection</a>
+            </div>
+        </div>
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content center-align">
+                <form method="post" id="form-image" enctype="multipart/form-data"
+                      action="">
+                    {% csrf_token %}
+                    <h4 class="center"><u>Live Video</u></h4>
+                    <video id="video" width="600" height="450" autoplay></video>
+                    <canvas id="canvas" width="600" height="450" class="hide"></canvas>
+                    <input type="hidden" name="image" id="face-image">
+                    <button type="submit" class="btn" id="detect-image" style="margin-bottom: 10px">Detect Face
+                    </button>
+                    <img src="" id="detect-data" width="600" height="450" class="hide">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let video = document.getElementById('video');
+            let canvas = document.getElementById('canvas');
+            let context = canvas.getContext('2d');
+            let face_image = document.getElementById('face-image');
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({video: true}).then(function (stream) {
+                    video.srcObject = stream;
+                    video.play();
+                });
+            }
+
+            $.DjangoAjaxHandler2({
+                submitBtn: '#detect-image',
+                form_selector: '#form-image',
+                beforeSubmission: function (form, instance) { // after errors are cleared, preprocessing can be done here
+                    $(instance.options.submitBtn).val('loading').prop('disabled', true).addClass('disabled');
+                    context.drawImage(video, 0, 0, 600, 450);
+                    face_image.value = canvas.toDataURL('image/png');
+                },
+                postSuccess: function (form, response, instance) {
+                    form.reset();
+                    Materialize.updateTextFields();
+                    $('#detect-data').removeClass('hide').attr('src', response['image']);
+                    $(instance.options.submitBtn).val('Detect Face').prop('disabled', false).removeClass('disabled');
+                },
+            });
+        })
+    </script>
+-->
