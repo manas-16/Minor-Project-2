@@ -10,6 +10,9 @@ from .forms import StudentForm
 from .forms import TeacherForm,UserForm,AssignCreateForm,AssignSubmitForm
 from django.urls import reverse
 import datetime
+#from PIL import Image
+#import io
+#from .. import web_socket
 
 # Create your views here.
 def index(request):
@@ -22,6 +25,23 @@ def index(request):
     context = {"teachers":teachers,"student":st,"sub":subjects,'Test':tests}
     return HttpResponse(template.render(context, request))
 
+
+def test(request):
+    if request.method=="POST":
+        print("yes")
+        data = request.POST.get('image')
+        #in_memory_file = io.BytesIO(data.content)
+        #im = Image.open(in_memory_file)
+        #im.show()
+    #web_socket.main()
+    template = loader.get_template('test2.html')# change to index.html
+    teachers = teacher_assign.objects.all()
+    st = student.objects.all()
+    subjects = subject.objects.all()
+    tests = Test.objects.all()
+    print(tests)
+    context = {"teachers":teachers,"student":st,"sub":subjects,'Test':tests}
+    return HttpResponse(template.render(context, request))
 
 
 #teacher views
