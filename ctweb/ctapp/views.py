@@ -34,7 +34,7 @@ def test(request):
         #im = Image.open(in_memory_file)
         #im.show()
     #web_socket.main()
-    template = loader.get_template('test2.html')# change to index.html
+    template = loader.get_template('test.html')# change to index.html
     teachers = teacher_assign.objects.all()
     st = student.objects.all()
     subjects = subject.objects.all()
