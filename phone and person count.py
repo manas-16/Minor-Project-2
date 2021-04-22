@@ -333,7 +333,7 @@ def weights_download(out='models/yolov3.weights'):
 
 # weights_download() # to download weights
 yolo = YoloV3()
-load_darknet_weights(yolo, 'yolov3.weights')
+load_darknet_weights(yolo, 'G:/yolov3.weights')
 
 cap = cv2.VideoCapture(0)
 
