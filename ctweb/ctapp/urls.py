@@ -26,6 +26,7 @@ urlpatterns = [
         path('s_sub_assign/<str:id>/<str:sub_id>', views.student_subject_assign, name='s_subject_assignment_list'),
         path('s_assign_form/<str:id>/<int:assign_id>', views.stud_assign_submit, name='submit_assign'),
         path('s_download_assign/<str:id>/<int:assign_id>', views.stud_assign_download, name='download_assign'),
+        path('exit_test/',views.exit_test, name='exitTest'),
     ],'studentapp'),namespace='student')),
 ]
 
