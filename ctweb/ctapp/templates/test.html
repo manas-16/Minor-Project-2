@@ -19,7 +19,7 @@
 Parallo Template
 https://templatemo.com/tm-534-parallo
 -->
-  <body id="servicesPage" onload="openFullscreen()">
+  <body id="servicesPage" onclick="openfullscreen()">
     <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/testimg1.jpg' %}">
       <div class="container-fluid">
         <div class="row tm-brand-row">
@@ -47,8 +47,8 @@ https://templatemo.com/tm-534-parallo
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav">
-                    <li class="btn btn-outline-dark">
-                      Welcome!
+                    <li class="nav-item">
+                      <button class='btn btn-outline-dark' id='startTest' onclick="giveAlert();">Start Test</button> 
                     </li>
                     <li class="nav-item">
                       <a href="{% url 's_logout' %}" class="btn btn-outline-dark" style="height: 60px; text-align:center;">Logout</a>
@@ -61,32 +61,38 @@ https://templatemo.com/tm-534-parallo
         </div>
 
         <!-- Services header -->
-        <section class="row" id="tmServices">
+        <section class="row" id='instructions' style='display:block'>
+              General Instructions:
+        </section>
+        
+        <section class="row" id="testArea" style="display: none;">
          <div class="col-12">
             <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header"
                  data-parallax="scroll"
                  data-z-index="101"
                  data-image-src="{% static 'img/ice-mountain.jpg' %}">
+                  
 				 <div class="tm-bg-black-transparent text-center tm-services-header tm-testimonials-header">
                     <p class="btn btn-outline-light active">
+                     
                         {% for test in Test %}
                         {{test.c_id.branch}}
-						{{test.c_id.sem}}
+					            	{{test.c_id.sem}}
                         {{test.c_id.sec}}<br>
                         {{test.t_id.name}}<br>
                         {{test.date}}<br>
                         {{test.starttime}} {{test.endtime}}<br>
                         {{test.topic}}<br>
-                    </p>
-                    
+                    </p> 
                 </div>
             </div>
-          </div>   
+          </div>
+          
+		    <div id='test'>{{test.link|safe}}</div>
 		  
-		  {{test.link|safe}}
 
 		  {% endfor %}
-
+  
 
     <div class="col s6">
         <div class="card">
@@ -115,6 +121,7 @@ https://templatemo.com/tm-534-parallo
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 	
     <script>
+  
         $(function(){
             $('.tabgroup > div').hide();
             $('.tabgroup > div:first-of-type').show();  
@@ -144,9 +151,6 @@ https://templatemo.com/tm-534-parallo
 
 <script>
 
-window.onload = function() {
-  openFullscreen;
-};
 
 </script>
 
@@ -176,10 +180,31 @@ window.onload = function() {
 
 <script>
     /* Get the documentElement (<html>) to display the page in fullscreen */
-var elem = document.getElementById("body");;
+var elem = document.getElementById("body");
 
 /* View in fullscreen */
+function giveAlert(){
+  
+  var txt='Test will be taken in full screen mode. All the activities will be recorded and checked for malpractice.';
+  if(confirm(txt)){
+    openFullscreen();
+  }
+}
+
+
+function showContent(){
+
+    /* document.getElementById("testarea").style.display="block";
+    document.getElementById("instructions").style.display="none"; */
+
+    alert("hello");
+
+}
+
 function openFullscreen() {
+
+  showContent();
+  
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
   } else if (elem.webkitRequestFullscreen) { /* Safari */
@@ -200,25 +225,6 @@ function closeFullscreen() {
   }
 }
 
-</script>
-
-<script>
-   document.documentElement.requestFullscreen().catch((e) => {
-      console.log(e);
-   });
-</script>
-<!--event to start full screen   dblclick-->
-<script>
-   document.addEventListener('dblclick', () => {
-      document.documentElement.requestFullscreen().catch((e) => {
-         console.log(e);
-      });
-   });
-</script>
-
-
-<!--full screen using button-->
-<script>
 var elem = document.documentElement;
 function openFullscreen() {
   if (elem.requestFullscreen) {
