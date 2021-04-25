@@ -16,7 +16,7 @@ import datetime
 
 # Create your views here.
 def index(request):
-    template = loader.get_template('test.html')# change to index.html
+    template = loader.get_template('index.html')# change to index.html
     teachers = teacher_assign.objects.all()
     st = student.objects.all()
     subjects = subject.objects.all()
@@ -26,22 +26,7 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def test(request):
-    if request.method=="POST":
-        print("yes")
-        data = request.POST.get('image')
-        #in_memory_file = io.BytesIO(data.content)
-        #im = Image.open(in_memory_file)
-        #im.show()
-    #web_socket.main()
-    template = loader.get_template('test.html')# change to index.html
-    teachers = teacher_assign.objects.all()
-    st = student.objects.all()
-    subjects = subject.objects.all()
-    tests = Test.objects.all()
-    print(tests)
-    context = {"teachers":teachers,"student":st,"sub":subjects,'Test':tests}
-    return HttpResponse(template.render(context, request))
+
 
 
 #teacher views
@@ -233,6 +218,22 @@ def stud_assign_download(request,id,assign_id):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
     return response
+
+def stud_test(request,stud_id,test_id):
+    if request.method=="POST":
+        print("yes")
+        data = request.POST.get('image')
+        #in_memory_file = io.BytesIO(data.content)
+        #im = Image.open(in_memory_file)
+        #im.show()
+    #web_socket.main()
+    template = loader.get_template('test.html')# change to index.html
+    test = Test.objects.get(id=test_id)
+    st = student.objects.get(enrollment_number=stud_id)
+    print(test)
+    context = {"student":st,'test':test}
+    return HttpResponse(template.render(context, request))
+
 
 @login_required(login_url='s_login/')
 def s_logout(request):

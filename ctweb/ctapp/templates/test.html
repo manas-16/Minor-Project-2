@@ -48,7 +48,7 @@ https://templatemo.com/tm-534-parallo
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav">
                     <li class="btn btn-outline-dark">
-                      Welcome!
+                      Welcome! {{student.name}}!
                     </li>
                     <li class="nav-item">
                       <a href="{% url 's_logout' %}" class="btn btn-outline-dark" style="height: 60px; text-align:center;">Logout</a>
@@ -69,7 +69,6 @@ https://templatemo.com/tm-534-parallo
                  data-image-src="{% static 'img/ice-mountain.jpg' %}">
 				 <div class="tm-bg-black-transparent text-center tm-services-header tm-testimonials-header">
                     <p class="btn btn-outline-light active">
-                        {% for test in Test %}
                         {{test.c_id.branch}}
 						{{test.c_id.sem}}
                         {{test.c_id.sec}}<br>
@@ -85,7 +84,6 @@ https://templatemo.com/tm-534-parallo
 		  
 		  {{test.link|safe}}
 
-		  {% endfor %}
 
 
     <div class="col s6">
@@ -175,6 +173,7 @@ window.onload = function() {
 
 
 <script>
+<script>
     /* Get the documentElement (<html>) to display the page in fullscreen */
 var elem = document.getElementById("body");;
 
@@ -255,6 +254,7 @@ function closeFullscreen() {
         });
     }
         var socket = new WebSocket('ws://localhost:8001/websocket');
+
         $(document).ready(function () {
             let video = document.getElementById('video');
             let canvas = document.getElementById('canvas');
@@ -277,6 +277,8 @@ function closeFullscreen() {
             document.getElementById("start-stream").addEventListener("click", function () {
                 socket.send("hello");
                 drawCanvas();
+                socket.send("stud:"+"{{student.enrollment_number}}");
+                socket.send("testid:"+"{{test.id}}");
             });
 
             socket.onmessage = function (e) {

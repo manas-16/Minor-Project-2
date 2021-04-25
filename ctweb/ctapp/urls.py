@@ -3,7 +3,7 @@ from django.urls import path,include
 from .import views
 
 urlpatterns = [
-    path('', views.test, name='index'),
+    path('', views.index, name='index'),
 
     path('t_login/', views.teacher_login,name='t_login'),
     path('t_signup/', views.teacher_signup,name='t_signup'),
@@ -26,6 +26,7 @@ urlpatterns = [
         path('s_sub_assign/<str:id>/<str:sub_id>', views.student_subject_assign, name='s_subject_assignment_list'),
         path('s_assign_form/<str:id>/<int:assign_id>', views.stud_assign_submit, name='submit_assign'),
         path('s_download_assign/<str:id>/<int:assign_id>', views.stud_assign_download, name='download_assign'),
+        path('s_test/<str:stud_id>/<int:test_id>', views.stud_test, name='test'),
     ],'studentapp'),namespace='student')),
 ]
 

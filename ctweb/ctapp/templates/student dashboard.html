@@ -121,6 +121,9 @@ https://templatemo.com/tm-534-parallo
                       <div class="cards">
                         <div class="contents">
                           <p class="card-text">
+                            Subject: {{test.s_id.name}}
+                          </p>
+                          <p class="card-text">
                             Topic: {{test.topic}}
                           </p>
                           <p class="card-text">
@@ -131,7 +134,7 @@ https://templatemo.com/tm-534-parallo
                           </p>
                         </div>
                         <div class="card-text" style="position:relative; top:50px;">
-                          <a class="btn btn-outline-dark" href="#">Give Test</a>
+                          <a class="btn btn-outline-dark" href="{% url 'student:test' student.enrollment_number test.id %}">Give Test</a>
                         </div>
                       </div>
                     </div>
