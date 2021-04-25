@@ -28,6 +28,12 @@ def index(request):
 
 
 
+def exit_test(request):
+    template = loader.get_template('test_exit.html')
+    message = "Sorry, you can't take test in normal screen."
+    context={"message":message}
+    return HttpResponse(template.render(context,request))
+
 
 #teacher views
 def teacher_login(request):
