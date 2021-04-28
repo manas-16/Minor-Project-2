@@ -19,7 +19,7 @@
 Parallo Template
 https://templatemo.com/tm-534-parallo
 -->
-  <body id="servicesPage" onload="openFullscreen()">
+  <body id="body" onload="openFullscreen()" style="overflow: hidden;">
     <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/testimg1.jpg' %}">
       <div class="container-fluid">
         <div class="row tm-brand-row">
@@ -48,7 +48,14 @@ https://templatemo.com/tm-534-parallo
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav">
                     <li class="btn btn-outline-dark">
-                      Welcome! {{student.name}}!
+                      {% for test in Test %}
+                        <b>Test:</b> {{test.topic}}
+                      {% endfor %}
+                    </li>
+                    <li class="btn btn-outline-dark">
+                      {% for test in Test %}
+                        <b>Time:</b>  {{test.date}}<br> {{test.starttime}}-{{test.endtime}}
+                      {% endfor %}
                     </li>
                     <li class="nav-item">
                       <a href="{% url 's_logout' %}" class="btn btn-outline-dark" style="height: 60px; text-align:center;">Logout</a>
@@ -61,53 +68,41 @@ https://templatemo.com/tm-534-parallo
         </div>
 
         <!-- Services header -->
-        <section class="row" id="tmServices">
-         <div class="col-12">
-            <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header"
-                 data-parallax="scroll"
-                 data-z-index="101"
-                 data-image-src="{% static 'img/ice-mountain.jpg' %}">
-				 <div class="tm-bg-black-transparent text-center tm-services-header tm-testimonials-header">
-                    <p class="btn btn-outline-light active">
-                        {{test.c_id.branch}}
-						{{test.c_id.sem}}
-                        {{test.c_id.sec}}<br>
-                        {{test.t_id.name}}<br>
-                        {{test.date}}<br>
-                        {{test.starttime}} {{test.endtime}}<br>
-                        {{test.topic}}<br>
-                    </p>
-                    
+        <section class="Test_section" id="test_body">
+          <div class="col-12">
+              <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header"
+                  data-parallax="scroll"
+                  data-z-index="101">
+                <div class="tm-bg-black-transparent tm-services-header tm-testimonials-header">
+                  <div>
+                    General instructions:
+                    <ol>
+                      <li>Instruction 1</li>
+                      <li>Instruction 2</li>
+                    </ol>
+                  </div>
+                  <a onclick="alertUser()" id="start_btn" class="btn btn-outline-dark">Start Test!</a>
                 </div>
-            </div>
-          </div>   
-		  
-		  {{test.link|safe}}
-
-
-
-    <div class="col s6">
-        <div class="card">
-            <div class="card-content center-align">
-                <h4 class="center"><u>Live Video</u></h4>
-                <video id="video" width="600" height="450" autoplay></video>
-                <canvas id="canvas" width="600" height="450" class="hide"></canvas>
-                <button type="button" class="btn" id="start-stream" style="margin-bottom: 10px">Start Face Detection
-                </button>
-                <canvas id="detect-data" width="600" height="450"></canvas>
-            </div>
-        </div>
-    </div>
-
-<div class="col-lg-6" align="center">
-<br><br><br>
-<button onclick="openFullscreen();" style="width:400px;height:40px">Open Fullscreen</button><br><br>
-<button onclick="closeFullscreen();" style="width:400px;height:40px">Close Fullscreen</button><br><br>
-</div>
-</div>
-
-
-
+              </div>
+            </div> 
+        </section>
+        <div id="test_ques" style="display:none;">
+          <div id="live_vd" class="test_elements">
+                <div class="card-content center-align">
+                    <video id="video" width="600" height="250" autoplay></video>
+                    <canvas id="canvas" width="600" height="450" class="hide"></canvas>
+                    <button type="button" class="btn" id="start-stream" style="margin-bottom: 10px">Start Face Detection
+                    </button>
+                    <canvas id="detect-data" width="600" height="450"></canvas>
+                </div>
+          </div>
+          <div id="test_form" class="test_elements">
+            {% for test in Test %}
+              {{test.link|safe}}
+            {% endfor %}
+          </div>
+       </div>
+  
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/parallax.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -138,17 +133,6 @@ https://templatemo.com/tm-534-parallo
         
     </script>
 
-<!--video recording logic-->
-
-<script>
-
-window.onload = function() {
-  openFullscreen;
-};
-
-</script>
-
-
 <!--cut copy disabled-->
     <script>
       $(document).ready(function() {
@@ -173,71 +157,68 @@ window.onload = function() {
 
 
 <script>
-<script>
-    /* Get the documentElement (<html>) to display the page in fullscreen */
-var elem = document.getElementById("body");;
 
-/* View in fullscreen */
-function openFullscreen() {
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.webkitRequestFullscreen) { /* Safari */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE11 */
-    elem.msRequestFullscreen();
+  function alertUser(){
+    var response=confirm("The test is available only in the fullscreen.");
+    if(response==true){
+      openFullscreen();
+    }
   }
-}
 
-/* Close fullscreen */
-function closeFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) { /* Safari */
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) { /* IE11 */
-    document.msExitFullscreen();
+  /* Get the documentElement (<html>) to display the page in fullscreen */
+  var elem = document.getElementById("test_ques");
+
+  /* View in fullscreen */
+  function openFullscreen() {
+    
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+      elem.msRequestFullscreen();
+    }
   }
-}
 
-</script>
-
-<script>
-   document.documentElement.requestFullscreen().catch((e) => {
-      console.log(e);
-   });
-</script>
-<!--event to start full screen   dblclick-->
-<script>
-   document.addEventListener('dblclick', () => {
-      document.documentElement.requestFullscreen().catch((e) => {
-         console.log(e);
-      });
-   });
-</script>
-
-
-<!--full screen using button-->
-<script>
-var elem = document.documentElement;
-function openFullscreen() {
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.webkitRequestFullscreen) { /* Safari */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE11 */
-    elem.msRequestFullscreen();
+  /* Close fullscreen */
+  function closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+      toggleSection('test_ques');
+    } else if (document.webkitExitFullscreen) { /* Safari */
+      document.webkitExitFullscreen();
+      toggleSection('test_ques');
+    } else if (document.msExitFullscreen) { /* IE11 */
+      document.msExitFullscreen();
+      toggleSection('test_ques');
+    }
   }
-}
 
-function closeFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) { /* Safari */
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) { /* IE11 */
-    document.msExitFullscreen();
+  
+  function toggleSection(ele_id){
+    var output = document.getElementById(ele_id);
+    var res=output.style.display;
+    if(res=="block"){
+      output.style.display="none";
+    }
+    else{
+      output.style.display="block";
+    }
   }
-}
+
+  document.addEventListener("fullscreenchange", function() {
+    toggleSection('test_ques');
+  });
+  document.addEventListener("mozfullscreenchange", function() {
+    toggleSection('test_ques');
+  });
+  document.addEventListener("webkitfullscreenchange", function() {
+    toggleSection('test_ques');
+  });
+  document.addEventListener("msfullscreenchange", function() {
+    toggleSection('test_ques');
+  });
+
 </script>
 
 <!--socket logic-->

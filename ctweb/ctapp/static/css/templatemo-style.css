@@ -533,9 +533,30 @@ p {
 .text-center{
   align-self: center;
 }
+#test_ques{
+  background-color:#F8F8FF;
+}
+#live_vd{
+  width:200px;
+  height: 200px;
+  position: absolute;
+  left:750px;
+  top:400px;
+}
 
-.assign_btn{
+#test_body{
+  position: relative;
+  top:-100px;
+}
 
+#test_form{
+  position: relative;
+  left:-200px;
+  top:20px;
+}
+
+.test_elements{
+  float: left;
 }
 
 /*Accordian*/
