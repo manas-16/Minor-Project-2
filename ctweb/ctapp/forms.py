@@ -9,6 +9,7 @@ class StudentForm(ModelForm):
     class Meta:
         model = student
         fields = ["enrollment_number", "name", "college_name", "email", 'sem', 'sec','branch','mobile_no']
+        
         '''
         widgets = {
         'user' : ModelForm.TextInput(attrs={'class': 'form-control'}),
@@ -24,9 +25,15 @@ class StudentForm(ModelForm):
 '''
 
 class UserForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+      super().__init__(*args, **kwargs)
+      self.fields['username'].help_text=' '
+      self.fields['password1'].help_text=' '
+      self.fields['password2'].help_text=' '
     class Meta:
         model = User
-        fields = ('username','password1', 'password2', )
+        fields = ('username','password1', 'password2')
+        
 
 class TeacherForm(ModelForm):
     class Meta:

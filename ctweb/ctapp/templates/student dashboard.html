@@ -48,13 +48,13 @@ https://templatemo.com/tm-534-parallo
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav">
                     <li class="btn btn-outline-dark">
-                      Welcome&nbsp;&nbsp;{{student.name}}!
+                      Welcome&nbsp;&nbsp;<b>{{student.name}}!</b>
                     </li>
                     <li class="nav-item">
                       <button type="button" class="btn btn-outline-dark">{{ cur_date }}</button>
                     </li>
                     <li class="nav-item">
-                      <a href="{% url 's_logout' %}" class="btn btn-outline-dark" style="height: 60px; text-align:center;">Logout</a>
+                      <a href="{% url 's_logout' %}" class="btn btn-outline-dark" style="height: 90px; text-align:center;">Logout</a>
                     </li>
                   </ul>
                 </div>
@@ -121,10 +121,10 @@ https://templatemo.com/tm-534-parallo
                       <div class="cards">
                         <div class="contents">
                           <p class="card-text">
-                            Subject: {{test.s_id.name}}
+                            {{test.s_id.name}}
                           </p>
                           <p class="card-text">
-                            Topic: {{test.topic}}
+                            <b>Topic: </b>{{test.topic}}
                           </p>
                           <p class="card-text">
                             {{test.t_id.name}}
