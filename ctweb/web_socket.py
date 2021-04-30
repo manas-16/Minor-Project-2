@@ -10,7 +10,9 @@ import glob
 import cv2
 from PIL import Image
 import numpy as np
-#from .ctapp.models import student,Test,stud_test_submission
+#from django.apps import ctapp
+#from .ctapp import models
+from django.core.files import File
 
 
 
@@ -44,18 +46,17 @@ class MainHandler(tornado.websocket.WebSocketHandler):
             #img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
         print('now making video')
-        out = cv2.VideoWriter('Images/test_video.avi', cv2.VideoWriter_fourcc(*'DIVX'), 15, (600,450))
+        name = 'Images/'+self.stud_id+'.avi'
+        out = cv2.VideoWriter(name, cv2.VideoWriter_fourcc(*'DIVX'), 15, (600,450))
         for i in range(len(img_array)):
             out.write(img_array[i])
         out.release()
-
         print('now deleting frames')
         #deleting frames
         import os
         for filename in self.frames:
             os.remove(filename)
 
-        #ADD logic to create a test submission object which has 3 values stud id , test id ,a video file and proctor description
 
 
 
@@ -65,9 +66,9 @@ class MainHandler(tornado.websocket.WebSocketHandler):
         #print("received",message)
         #print(message)
         if message.startswith('stud:'):
-            #print(message)
+            print(message)
             self.stud_id = message.split(':')[1]
-            #print(self.stud_id)
+            print(self.stud_id)
         elif message.startswith('testid:'):
             #print(message)
             self.test_id = int(message.split(':')[1])
@@ -101,5 +102,18 @@ def main():
     tornado.ioloop.IOLoop.instance().start()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and __package__ is None:
+    #__package__ = "web socket and proctor"
+    #from .ctapp.models import student, Test, student_testsubmission
     main()
+
+
+        #ADD logic to create a test submission object which has 3 values stud id , test id ,a video file and proctor description
+"""     stud_object = student.objects.get(enrollment_number=self.stud_id)
+        test_obj = Test.objects.get(id=int(self.test_id))
+        submission = student_testsubmission()
+        submission.stud_id = stud_object
+        submission.test_id = test_obj
+        file = File(open(name,'rb'))
+        submission.video = file
+        submission.save()"""
