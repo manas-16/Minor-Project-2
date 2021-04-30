@@ -62,7 +62,7 @@ class MainHandler(tornado.websocket.WebSocketHandler):
         sys.path.append('..')
         import django
         django.setup()
-        from ctapp.models import student_testsubmission, student, Test
+        from ctapp.models import student_testsubmission, student, Test #this might look like error but it's not
         #x = student.objects.get(enrollment_number='0103IT181055')
         #print(x)
 
@@ -118,7 +118,7 @@ class Application(tornado.web.Application):
         tornado.web.Application.__init__(self, handlers, **settings)
 
 
-def main():
+def socket():
     print("yes")
     import os
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ctweb.settings")
@@ -130,15 +130,5 @@ def main():
 
 
 if __name__ == "__main__" and __package__ is None:
-    main()
+    socket()
 
-
-        #ADD logic to create a test submission object which has 3 values stud id , test id ,a video file and proctor description
-"""     stud_object = student.objects.get(enrollment_number=self.stud_id)
-        test_obj = Test.objects.get(id=int(self.test_id))
-        submission = student_testsubmission()
-        submission.stud_id = stud_object
-        submission.test_id = test_obj
-        file = File(open(name,'rb'))
-        submission.video = file
-        submission.save()"""
