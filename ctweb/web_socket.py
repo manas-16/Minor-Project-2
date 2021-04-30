@@ -13,7 +13,7 @@ import numpy as np
 #from django.apps import ctapp
 #from .ctapp import models
 from django.core.files import File
-
+#from ctweb.ctapp.models import student_testsubmission,student,Test
 
 
 define("port", default=8001, help="run on the given port", type=int)
@@ -57,6 +57,31 @@ class MainHandler(tornado.websocket.WebSocketHandler):
         for filename in self.frames:
             os.remove(filename)
 
+        # This logic is necessary to import django files from non-django python files like this
+        import sys
+        sys.path.append('..')
+        import django
+        django.setup()
+        from ctapp.models import student_testsubmission, student, Test
+        #x = student.objects.get(enrollment_number='0103IT181055')
+        #print(x)
+
+
+    # ADD logic to create a test submission object which has 3 values stud id , test id ,a video file and proctor description
+        stud_object = student.objects.get(enrollment_number=self.stud_id)
+        test_obj = Test.objects.get(id=int(self.test_id))
+        submission = student_testsubmission()
+        submission.stud_id = stud_object
+        submission.test_id = test_obj
+        f = open(name,'rb')
+        file = File(f)
+        submission.video = file
+        submission.save()
+        f.close()
+
+        #delete video locally stored
+        os.remove(name)
+
 
 
 
@@ -95,16 +120,16 @@ class Application(tornado.web.Application):
 
 def main():
     print("yes")
+    import os
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ctweb.settings")
     tornado.options.parse_command_line()
+    #now we start app
     app = Application()
     app.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
 
 
 if __name__ == "__main__" and __package__ is None:
-    #__package__ = "web socket and proctor"
-    #from .ctapp.models import student, Test, student_testsubmission
     main()
 
 
