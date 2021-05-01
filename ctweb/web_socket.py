@@ -10,8 +10,10 @@ import glob
 import cv2
 from PIL import Image
 import numpy as np
-#from .ctapp.models import student,Test,stud_test_submission
-
+#from django.apps import ctapp
+#from .ctapp import models
+from django.core.files import File
+#from ctweb.ctapp.models import student_testsubmission,student,Test
 
 
 define("port", default=8001, help="run on the given port", type=int)
@@ -44,18 +46,42 @@ class MainHandler(tornado.websocket.WebSocketHandler):
             #img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
         print('now making video')
-        out = cv2.VideoWriter('Images/test_video.avi', cv2.VideoWriter_fourcc(*'DIVX'), 15, (600,450))
+        name = 'Images/'+self.stud_id+'.avi'
+        out = cv2.VideoWriter(name, cv2.VideoWriter_fourcc(*'DIVX'), 15, (600,450))
         for i in range(len(img_array)):
             out.write(img_array[i])
         out.release()
-
         print('now deleting frames')
         #deleting frames
         import os
         for filename in self.frames:
             os.remove(filename)
 
-        #ADD logic to create a test submission object which has 3 values stud id , test id ,a video file and proctor description
+        # This logic is necessary to import django files from non-django python files like this
+        import sys
+        sys.path.append('..')
+        import django
+        django.setup()
+        from ctapp.models import student_testsubmission, student, Test #this might look like error but it's not
+        #x = student.objects.get(enrollment_number='0103IT181055')
+        #print(x)
+
+
+    # ADD logic to create a test submission object which has 3 values stud id , test id ,a video file and proctor description
+        stud_object = student.objects.get(enrollment_number=self.stud_id)
+        test_obj = Test.objects.get(id=int(self.test_id))
+        submission = student_testsubmission()
+        submission.stud_id = stud_object
+        submission.test_id = test_obj
+        f = open(name,'rb')
+        file = File(f)
+        submission.video = file
+        submission.save()
+        f.close()
+
+        #delete video locally stored
+        os.remove(name)
+
 
 
 
@@ -65,9 +91,9 @@ class MainHandler(tornado.websocket.WebSocketHandler):
         #print("received",message)
         #print(message)
         if message.startswith('stud:'):
-            #print(message)
+            print(message)
             self.stud_id = message.split(':')[1]
-            #print(self.stud_id)
+            print(self.stud_id)
         elif message.startswith('testid:'):
             #print(message)
             self.test_id = int(message.split(':')[1])
@@ -92,14 +118,17 @@ class Application(tornado.web.Application):
         tornado.web.Application.__init__(self, handlers, **settings)
 
 
-def main():
+def socket():
     print("yes")
+    import os
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ctweb.settings")
     tornado.options.parse_command_line()
+    #now we start app
     app = Application()
     app.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__" and __package__ is None:
+    socket()
+

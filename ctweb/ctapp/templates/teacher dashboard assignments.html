@@ -72,24 +72,32 @@ https://templatemo.com/tm-534-parallo
         <!-- Services header -->
         <section class="row" id="tmServices">
             <div class="col-12">
-               <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header">
-   
-                    <div class="tm-bg-white-transparent text-center tm-services-header tm-testimonials-header">
-                       <h2 class="tm-services-page-title tm-testimonials-page-title">Uploaded Assignments</h2>
-                   </div>
-               </div>
+              <p><h2 style="color:white;">Assignments assigned:</h2></p>
+                  <div id="assignments">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Topic</th>
+                          <th scope="col">Last Date</th>
+                          <th scope="col">Assignment File</th>
+                          <th scope="col">Check Submissions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for a in assignment_list %}
+                        <tr>
+                          <th scope="row">{{a.topic}}</th>
+                          <td>{{a.last_date}}</td>
+                          <td><a href="{{ a.assignfile.url }}" download class="btn btn-success assign_btn">Download</a></td>
+                          <td class="text-center"><a href="#">Click</a></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+              
+                  </div>
             </div>  
-			
-			<div class="col-12">
-               <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header">
-   
-                    <div class="tm-bg-white-transparent text-center tm-services-header tm-testimonials-header">
-                       <h2 class="tm-services-page-title tm-testimonials-page-title">Student Submissions</h2>
-                   </div>
-               </div>
-            </div>  
-
-
+        </section>
          <!-- Page footer -->
          <footer class="row">
             <p class="col-12 text-white text-center tm-copyright-text">
