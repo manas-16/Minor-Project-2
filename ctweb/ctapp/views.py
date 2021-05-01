@@ -94,13 +94,13 @@ def teacher_subject_assign(request, id, sub_id,class_id):           # to list as
     current_teacher = teacher.objects.get(id=id)
     current_subject = subject.objects.get(subject_code=sub_id)
     assignment_list = get_assignment_teacher(current_subject,current_teacher)
-    context = {'teacher':current_teacher,'assignement_list':assignment_list,"subject":subject}
+    context = {'teacher':current_teacher,'assignment_list':assignment_list,"subject":subject}
     return HttpResponse(template.render(context, request))
 
 
 @login_required(login_url='t_login/')
 def teacher_assignment_submission(request,a_id):
-    template = loader.get_template('teacher dashboard examination.html')
+    template = loader.get_template('teacher_dashboard_assignment_submissions.html')
     student_submission_list = student_submission.objects.filter(a_id=a_id)
     current_teacher = a_id.t_id
     context = {'teacher':current_teacher,'submission_list':student_submission_list}
