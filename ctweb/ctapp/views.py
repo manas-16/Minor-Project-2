@@ -226,13 +226,6 @@ def stud_assign_download(request,id,assign_id):
     return response
 
 def stud_test(request,stud_id,test_id):
-    if request.method=="POST":
-        print("yes")
-        data = request.POST.get('image')
-        #in_memory_file = io.BytesIO(data.content)
-        #im = Image.open(in_memory_file)
-        #im.show()
-    #web_socket.main()
     template = loader.get_template('test.html')
     test = Test.objects.get(id=test_id)
     st = student.objects.get(enrollment_number=stud_id)

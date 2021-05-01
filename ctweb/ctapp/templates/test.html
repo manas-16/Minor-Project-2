@@ -98,7 +98,7 @@ https://templatemo.com/tm-534-parallo
               {{test.link|safe}}
           </div>
        </div>
-  
+
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/parallax.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -251,8 +251,8 @@ https://templatemo.com/tm-534-parallo
                 socket.send(canvas.toDataURL('image/png'));
             }
 
-            document.getElementById("start-stream").addEventListener("click", function () {
-                socket.send("hello");
+            document.getElementById("start_btn").addEventListener("click", function () {
+                //socket.send("hello");
                 drawCanvas();
                 socket.send("stud:"+"{{student.enrollment_number}}");
                 socket.send("testid:"+"{{test.id}}");

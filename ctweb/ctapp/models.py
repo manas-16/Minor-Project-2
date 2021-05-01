@@ -72,6 +72,7 @@ def get_directory_for_assignment_details(instance, filename):
     cclass = str(instance.c_id.sem) + "_" + str(instance.c_id.sec)
     sub = str(instance.s_id.name)
     top = str(instance.topic)
+    filename = "Assignement_Questions"
     return 'Assignments/class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,filename)
 
 
@@ -95,13 +96,14 @@ def user_directory_path(instance, filename):
     cclass = str(instance.a_id.c_id.sem) + "_" + str(instance.a_id.c_id.sec)
     sub = str(instance.a_id.s_id.name)
     top = str(instance.a_id.topic)
-    return 'Assignments/class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,filename)
+    name = str(instance.stud_id.enrollment_number)
+    return 'Assignments/class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,name)
 
 
 
 
 
-class student_submission(models.Model):
+class student_submission(models.Model):#assignment
     a_id = models.ForeignKey(assignment,on_delete=models.CASCADE)
     stud_id = models.ForeignKey(student,on_delete=models.CASCADE)
     file = models.FileField(upload_to =user_directory_path)
@@ -129,7 +131,26 @@ class Test(models.Model):
         return sem_sec+" - "+s_name+' - ' + str(self.topic)
 
 
+#to get separate folder for each test
+def user_directory_path_for_test(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
+    cclass = str(instance.test_id.c_id.sem) + "_" + str(instance.test_id.c_id.sec)
+    sub = str(instance.test_id.s_id.name)
+    top = str(instance.test_id.topic)
+    name = str(instance.stud_id.enrollment_number)
+    return 'Tests/class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,name)
 
+
+class student_testsubmission(models.Model):#proctored test
+    test_id = models.ForeignKey(Test,on_delete=models.CASCADE)
+    stud_id = models.ForeignKey(student,on_delete=models.CASCADE)
+    video = models.FileField(upload_to =user_directory_path_for_test)
+
+    def __str__(self):
+        s_name = str(((self.test_id).s_id).name)  #subject name
+        topic = str(self.test_id.topic)  #topic name
+        sem_sec = str((self.test_id.c_id.sem))+"TH - "+str((self.test_id.c_id.sec))
+        return str(self.stud_id.enrollment_number)+" - "+sem_sec+" - "+ s_name + " - "+ str(topic)
 """
 def userpath(instance, filename):
     # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
