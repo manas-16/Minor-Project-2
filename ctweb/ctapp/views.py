@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import teacher,student,subject,teacher_assign,student_submission,assignment,Class,Test
+from .models import teacher,student,subject,teacher_assign,student_submission,assignment,Class,Test,student_testsubmission
 from django.contrib import auth
 from django.shortcuts import redirect,HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import StudentForm
-from .forms import TeacherForm,UserForm,AssignCreateForm,AssignSubmitForm
+from .forms import TeacherForm,UserForm,AssignCreateForm,AssignSubmitForm,TestCreateForm
 from django.urls import reverse
 import datetime
 #from PIL import Image
@@ -97,20 +97,31 @@ def teacher_subject_assign(request, id, sub_id,class_id):           # to list as
     context = {'teacher':current_teacher,'assignment_list':assignment_list,"subject":subject}
     return HttpResponse(template.render(context, request))
 
-
+#Assignment
 @login_required(login_url='t_login/')
-def teacher_assignment_submission(request,a_id):
+def teach_assign_create(request,t_id,c_id,sub_id):
+    if request.method == 'POST':
+        form = AssignCreateForm(request.POST)
+        if form.is_valid():
+            new_assignment = form.save(commit=False)
+            new_assignment.t_id = teacher.objects.get(id=t_id)
+            new_assignment.c_id = Class.objects.get(id=c_id)
+            new_assignment.s_id = subject.objects.get(subject_code=sub_id)
+            new_assignment.save()
+            print(new_assignment)
+    form = AssignCreateForm()
+    context = {'form': form}
+    template = loader.get_template('teacher dashboard create assignment.html')
+    return HttpResponse(template.render(context, request))
+
+#submission for test
+@login_required(login_url='t_login/')
+def teacher_assignment_submission(request,a_id):# list students who have submitted this assignment
     template = loader.get_template('teacher_dashboard_assignment_submissions.html')
     student_submission_list = student_submission.objects.filter(a_id=a_id)
     current_teacher = a_id.t_id
     context = {'teacher':current_teacher,'submission_list':student_submission_list}
     return HttpResponse(template.render(context, request))
-
-
-@login_required(login_url='t_login/')
-def teach_assign_create(request,stud_id,assign_id):
-    pass
-
 
 @login_required(login_url='t_login/')
 def assignment_viewer(request,id):
@@ -118,6 +129,33 @@ def assignment_viewer(request,id):
     template = loader.get_template('index.html')
     context = {'submission':submission}
     return HttpResponse(template.render(context,request))
+
+
+#Exam Create
+def teach_exam_create(request,t_id,c_id,sub_id):
+    if request.method == 'POST':
+        form = TestCreateForm(request.POST)
+        if form.is_valid():
+            new_test = form.save(commit=False)
+            new_test.t_id = teacher.objects.get(id=t_id)
+            new_test.c_id = Class.objects.get(id=c_id)
+            new_test.s_id = subject.objects.get(subject_code=sub_id)
+            new_test.save()
+            print(new_test)
+    form = TestCreateForm()
+    context = {'form': form}
+    template = loader.get_template('teacher dashboard create assignment.html')
+    return HttpResponse(template.render(context, request))
+
+#test attempted
+@login_required(login_url='t_login/')#list students who have given test and their report
+def teacher_test_submission(request,test_id):# list students who have submitted this assignment
+    template = loader.get_template('teacher_dashboard_test_submissions.html')
+    student_submission_list = student_testsubmission.objects.filter(id=test_id)
+    current_teacher = test_id.t_id
+    context = {'teacher':current_teacher,'submission_list':student_submission_list}
+    return HttpResponse(template.render(context, request))
+
 
 def t_logout(request):
     auth.logout(request)

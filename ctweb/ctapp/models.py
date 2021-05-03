@@ -140,11 +140,20 @@ def user_directory_path_for_test(instance, filename):
     name = str(instance.stud_id.enrollment_number)
     return 'Tests/class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,name)
 
+#to get separate name for test report
+def user_directory_path_for_test_report(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
+    cclass = str(instance.test_id.c_id.sem) + "_" + str(instance.test_id.c_id.sec)
+    sub = str(instance.test_id.s_id.name)
+    top = str(instance.test_id.topic)
+    name = str(instance.stud_id.enrollment_number)
+    return 'Tests/class_{0}/{1}/{2}/{3}_{4}'.format(cclass,sub,top,name,"report")
 
 class student_testsubmission(models.Model):#proctored test
     test_id = models.ForeignKey(Test,on_delete=models.CASCADE)
     stud_id = models.ForeignKey(student,on_delete=models.CASCADE)
     video = models.FileField(upload_to =user_directory_path_for_test)
+    report = models.FileField(upload_to =user_directory_path_for_test_report,default="p.pdf")
 
     def __str__(self):
         s_name = str(((self.test_id).s_id).name)  #subject name

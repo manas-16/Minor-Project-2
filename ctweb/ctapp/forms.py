@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from .models import student
-from .models import teacher,assignment,student_submission
+from .models import teacher,assignment,student_submission,Test,student_testsubmission
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -51,6 +51,12 @@ class AssignCreateForm(ModelForm):
     class Meta:
         model = assignment
         fields = ["topic","last_date","assignfile"]
+
+
+class TestCreateForm(ModelForm):
+    class Meta:
+        model = Test
+        fields = ["topic","link","date","starttime","endtime"]
 
 
 
