@@ -89,12 +89,23 @@ def teacher_dashboard(request,id):
 
 @login_required(login_url='t_login/')
 def teacher_subject_assign(request, id, sub_id,class_id):           # to list assignements given subject and class
+    if request.method == 'POST':
+        form = AssignCreateForm(request.POST)
+        if form.is_valid():
+            new_assignment = form.save(commit=False)
+            new_assignment.t_id = teacher.objects.get(id=id)
+            new_assignment.c_id = Class.objects.get(id=class_id)
+            new_assignment.s_id = subject.objects.get(subject_code=sub_id)
+            new_assignment.save()
+            print(new_assignment)
+    form = AssignCreateForm()
     template = loader.get_template('teacher dashboard assignments.html')
     print(id,sub_id,class_id)
     current_teacher = teacher.objects.get(id=id)
     current_subject = subject.objects.get(subject_code=sub_id)
+    current_class=Class.objects.get(id=class_id)
     assignment_list = get_assignment_teacher(current_subject,current_teacher)
-    context = {'teacher':current_teacher,'assignment_list':assignment_list,"subject":subject}
+    context = {'teacher':current_teacher,'assignment_list':assignment_list,'subject':current_subject,'class':current_class,'form':form}
     return HttpResponse(template.render(context, request))
 
 #Assignment
@@ -110,7 +121,7 @@ def teach_assign_create(request,t_id,c_id,sub_id):
             new_assignment.save()
             print(new_assignment)
     form = AssignCreateForm()
-    context = {'form': form}
+    context = {}
     template = loader.get_template('teacher dashboard create assignment.html')
     return HttpResponse(template.render(context, request))
 

@@ -50,8 +50,8 @@ https://templatemo.com/tm-534-parallo
                     <li class="btn btn-outline-dark">
                         <b>Test:</b> {{test.topic}}
                     </li>
-                    <li class="btn btn-outline-dark">
-                        <b>Time:</b>  {{test.date}}<br> {{test.starttime}}-{{test.endtime}}
+                    <li class="nav-item">
+                        <a href="{% url 'student:s_db' student.enrollment_number %}" class="btn btn-outline-dark"> Go Back </a>
                     </li>
                     <li class="nav-item">
                       <a href="{% url 's_logout' %}" class="btn btn-outline-dark" style="height: 60px; text-align:center;">Logout</a>
@@ -76,7 +76,7 @@ https://templatemo.com/tm-534-parallo
                       <li>Switching of tab is not allowed.</li>
                       <li>Please make sure that your face is visible to the camera at all times.</li>
                       <li>Any unusual activity will be recorded and checked for potential malpractices.</li>
-                      <li>Test will be automatically submitted after the alloted time.</li>
+                      <li>Test will be automatically submitted after the alloted time i.e <b>{{test.date}}<br> {{test.starttime}}-{{test.endtime}}</b></li>
                     </ol>
                   </div>
                   <a onclick="alertUser()" id="start_btn" class="btn btn-outline-light">Start Test!</a>
