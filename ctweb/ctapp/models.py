@@ -57,11 +57,11 @@ class Class(models.Model):
 
 
 class teacher_assign(models.Model):
-    c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)       #class id
+    c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)   #class id
     s_id = models.ForeignKey(subject,on_delete=models.CASCADE)  #subject id
     t_id = models.ForeignKey(teacher,on_delete=models.CASCADE)  #teacher id
     def __str__(self):
-        t_name = self.t_id.name#get name of teacher
+        t_name = self.t_id.name    #get name of teacher
         s_name = self.s_id.name    #get subject name
         sem_sec = str(self.c_id.sem) + "TH - " + str(self.c_id.sec)
         return sem_sec+" - "+s_name+' - ' + t_name
