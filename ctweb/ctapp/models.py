@@ -6,8 +6,8 @@ SEMESTER_CHOICES = [("1", 1),("2", 2),("3", 3),("4", 4),("5", 5),("6", 6),("7", 
 BRANCH_CHOICES = [("IT","IT"),("CS", "CS"),("EC", "EC"),("MECH", "MECH"),("EE", "EE"),("EX", "EX"),("CIVIL", "CIVIL"),]
 SEC_CHOICES = [('A','A'),('B','B'),('C','C')]
 CLG_CHOICES = [('LNCT','LNCT'),('LNCTS','LNCTS'),('LNCTE','LNCTE')]
-# Create your models here.
 
+# Create your models here.
 class student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,unique=True)
     enrollment_number = models.CharField(max_length = 12,primary_key = True)
@@ -77,7 +77,7 @@ def get_directory_for_assignment_details(instance, filename):
 
 
 class assignment(models.Model):
-    c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)       #class id
+    c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)   #class id
     s_id = models.ForeignKey(subject,on_delete=models.CASCADE)  #subject id
     t_id = models.ForeignKey(teacher,on_delete=models.CASCADE)  #teacher id
     topic = models.CharField(max_length=50)

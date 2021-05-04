@@ -91,7 +91,7 @@ https://templatemo.com/tm-534-parallo
                            </ul>
                        </p>
                        <br>
-                        <form action="{% url 'student:submit_assign' student.enrollment_number assignment.id%}" method="POST" enctype="multipart/form-data">
+                        <form action="{% url 'student:submit_assign' student.enrollment_number assignment.id %}" method="POST" enctype="multipart/form-data">
                           {% csrf_token %}
                           {% render_field form.file type="file" class="" id="myPdf" %}
                           <label for="myPdf">Choose file</label>

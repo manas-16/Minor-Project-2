@@ -9,20 +9,6 @@ class StudentForm(ModelForm):
     class Meta:
         model = student
         fields = ["enrollment_number", "name", "college_name", "email", 'sem', 'sec','branch','mobile_no']
-        
-        '''
-        widgets = {
-        'user' : ModelForm.TextInput(attrs={'class': 'form-control'}),
-        'enrollment_number' : ModelForm.TextInput(attrs={'class': 'form-control'}),
-        'name' : ModelForm.TextInput(attrs={'class': 'form-control'}),
-        'college_name' : ModelForm.TextInput(attrs={'class': 'form-control'}),
-        'sem' : ModelForm.TextInput(attrs={'class': 'form-control'}),
-        'sec' : ModelForm.TextInput(attrs={'class': 'form-control'}),
-        'branch' : ModelForm.TextInput(attrs={'class': 'form-control'}),
-        'mobile_no' : ModelForm.TextInput(attrs={'class': 'form-control'}),
-        'email' : ModelForm.TextInput(attrs={'class': 'form-control'}),
-        }
-'''
 
 class UserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
