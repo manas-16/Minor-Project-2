@@ -162,6 +162,10 @@ small {
   margin-top: 1rem;
 }
 
+#page-content{
+  width: 100%;
+}
+
  
 /* Nav */
 .tm-navbar {/*   padding: 19px 63px; */max-width: 840px;min-height: 125px;justify-content:;}
