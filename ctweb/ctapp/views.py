@@ -90,7 +90,8 @@ def teacher_dashboard(request,id):
 @login_required(login_url='t_login/')
 def teacher_subject_assign(request, id, sub_id,class_id):           # to list assignements given subject and class
     if request.method == 'POST':
-        form = AssignCreateForm(request.POST)
+        form = AssignCreateForm(request.POST,request.FILES)
+        #print(form.is_valid(),form.data,request.FILES)
         if form.is_valid():
             new_assignment = form.save(commit=False)
             new_assignment.t_id = teacher.objects.get(id=id)
@@ -108,22 +109,30 @@ def teacher_subject_assign(request, id, sub_id,class_id):           # to list as
     context = {'teacher':current_teacher,'assignment_list':assignment_list,'subject':current_subject,'class':current_class,'form':form}
     return HttpResponse(template.render(context, request))
 
-#Assignment
+
+############################ NOT IN USE ###########################################################
 @login_required(login_url='t_login/')
 def teach_assign_create(request,t_id,c_id,sub_id):
+    current_teacher = teacher.objects.get(id=t_id)
+    current_class = Class.objects.get(id=c_id)
+    current_subject = subject.objects.get(subject_code=sub_id)
     if request.method == 'POST':
-        form = AssignCreateForm(request.POST)
+        form = AssignCreateForm(request.POST,request.FILES)
+        print(form.is_valid(),form.data,request.FILES)
         if form.is_valid():
             new_assignment = form.save(commit=False)
-            new_assignment.t_id = teacher.objects.get(id=t_id)
-            new_assignment.c_id = Class.objects.get(id=c_id)
-            new_assignment.s_id = subject.objects.get(subject_code=sub_id)
+            new_assignment.t_id = current_teacher
+            new_assignment.c_id = current_class
+            new_assignment.s_id = current_subject
             new_assignment.save()
             print(new_assignment)
     form = AssignCreateForm()
-    context = {}
+    context = {'form':form,'teacher':current_teacher,'class':current_class,'subject':current_subject}
     template = loader.get_template('teacher dashboard create assignment.html')
     return HttpResponse(template.render(context, request))
+
+############################################################################################################
+
 
 #submission for test
 @login_required(login_url='t_login/')
@@ -146,6 +155,7 @@ def assignment_viewer(request,id):
 def teach_exam_create(request,t_id,c_id,sub_id):
     if request.method == 'POST':
         form = TestCreateForm(request.POST)
+
         if form.is_valid():
             new_test = form.save(commit=False)
             new_test.t_id = teacher.objects.get(id=t_id)
@@ -255,7 +265,7 @@ def stud_assign_submit(request,id,assign_id):
     # submit=get_status(current_student,assignment_current)
     if request.method=="POST":
         form = AssignSubmitForm(request.POST,request.FILES)
-        print(form.is_valid(),form.data)
+        print(form.is_valid(),form.data,request.FILES)
         if form.is_valid():
             new_submission = form.save(commit=False)
             new_submission.stud_id = current_student

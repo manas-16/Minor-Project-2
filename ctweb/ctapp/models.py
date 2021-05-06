@@ -68,12 +68,13 @@ class teacher_assign(models.Model):
 
 #to get separate folder for each assignment created
 def get_directory_for_assignment_details(instance, filename):
+    exe = filename.split('.')[-1]
     # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
     cclass = str(instance.c_id.sem) + "_" + str(instance.c_id.sec)
     sub = str(instance.s_id.name)
     top = str(instance.topic)
     filename = "Assignement_Questions"
-    return 'Assignments/class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,filename)
+    return 'Assignments/class_{0}/{1}/{2}/{3}.{4}'.format(cclass,sub,top,filename,exe)
 
 
 class assignment(models.Model):
@@ -92,12 +93,13 @@ class assignment(models.Model):
 
 #to get separate folder for each assignment
 def user_directory_path(instance, filename):
+    exe = filename.split('.')[-1]
     # file will be uploaded to MEDIA_ROOT/sem_sec_subject_topic/<filename>
     cclass = str(instance.a_id.c_id.sem) + "_" + str(instance.a_id.c_id.sec)
     sub = str(instance.a_id.s_id.name)
     top = str(instance.a_id.topic)
     name = str(instance.stud_id.enrollment_number)
-    return 'Assignments/class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,name)
+    return 'Assignments/class_{0}/{1}/{2}/{3}.{4}'.format(cclass,sub,top,name,exe)
 
 
 
@@ -138,7 +140,7 @@ def user_directory_path_for_test(instance, filename):
     sub = str(instance.test_id.s_id.name)
     top = str(instance.test_id.topic)
     name = str(instance.stud_id.enrollment_number)
-    return 'Tests/class_{0}/{1}/{2}/{3}'.format(cclass,sub,top,name)
+    return 'Tests/class_{0}/{1}/{2}/{3}.avi'.format(cclass,sub,top,name)
 
 #to get separate name for test report
 def user_directory_path_for_test_report(instance, filename):
@@ -147,7 +149,7 @@ def user_directory_path_for_test_report(instance, filename):
     sub = str(instance.test_id.s_id.name)
     top = str(instance.test_id.topic)
     name = str(instance.stud_id.enrollment_number)
-    return 'Tests/class_{0}/{1}/{2}/{3}_{4}'.format(cclass,sub,top,name,"report")
+    return 'Tests/class_{0}/{1}/{2}/{3}_{4}.pdf'.format(cclass,sub,top,name,"report")
 
 class student_testsubmission(models.Model):#proctored test
     test_id = models.ForeignKey(Test,on_delete=models.CASCADE)
