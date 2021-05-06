@@ -262,7 +262,6 @@ def student_subject_assign(request,id,sub_id):           # to list assignements 
 def stud_assign_submit(request,id,assign_id):
     current_student = student.objects.get(enrollment_number=id)
     assignment_current = assignment.objects.get(id=assign_id)
-    # submit=get_status(current_student,assignment_current)
     if request.method=="POST":
         form = AssignSubmitForm(request.POST,request.FILES)
         print(form.is_valid(),form.data,request.FILES)

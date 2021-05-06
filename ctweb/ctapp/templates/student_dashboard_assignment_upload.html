@@ -60,7 +60,7 @@ https://templatemo.com/tm-534-parallo
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="{% url 'student:s_db' student.enrollment_number %}" class="btn btn-outline-dark">
+                      <a href="{% url 'student:s_subject_assignment_list' student.enrollment_number assignment.s_id.subject_code %}" class="btn btn-outline-dark">
                         Go back
                       </a>
                     </li>
