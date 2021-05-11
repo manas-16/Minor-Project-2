@@ -91,7 +91,6 @@ def teacher_dashboard(request,id):
 def teacher_subject_assign(request, id, sub_id,class_id):           # to list assignements given subject and class
     if request.method == 'POST':
         form = AssignCreateForm(request.POST,request.FILES)
-        #print(form.is_valid(),form.data,request.FILES)
         if form.is_valid():
             new_assignment = form.save(commit=False)
             new_assignment.t_id = teacher.objects.get(id=id)
@@ -110,37 +109,13 @@ def teacher_subject_assign(request, id, sub_id,class_id):           # to list as
     return HttpResponse(template.render(context, request))
 
 
-############################ NOT IN USE ###########################################################
-@login_required(login_url='t_login/')
-def teach_assign_create(request,t_id,c_id,sub_id):
-    current_teacher = teacher.objects.get(id=t_id)
-    current_class = Class.objects.get(id=c_id)
-    current_subject = subject.objects.get(subject_code=sub_id)
-    if request.method == 'POST':
-        form = AssignCreateForm(request.POST,request.FILES)
-        print(form.is_valid(),form.data,request.FILES)
-        if form.is_valid():
-            new_assignment = form.save(commit=False)
-            new_assignment.t_id = current_teacher
-            new_assignment.c_id = current_class
-            new_assignment.s_id = current_subject
-            new_assignment.save()
-            print(new_assignment)
-    form = AssignCreateForm()
-    context = {'form':form,'teacher':current_teacher,'class':current_class,'subject':current_subject}
-    template = loader.get_template('teacher dashboard create assignment.html')
-    return HttpResponse(template.render(context, request))
-
-############################################################################################################
-
-
 #submission for test
 @login_required(login_url='t_login/')
 def teacher_assignment_submission(request,a_id):# list students who have submitted this assignment
     template = loader.get_template('teacher_dashboard_assignment_submissions.html')
+    a = assignment.objects.filter(id=a_id)
     student_submission_list = student_submission.objects.filter(a_id=a_id)
-    current_teacher = a_id.t_id
-    context = {'teacher':current_teacher,'submission_list':student_submission_list}
+    context = {'submission_list':student_submission_list,'a':a}
     return HttpResponse(template.render(context, request))
 
 @login_required(login_url='t_login/')
@@ -341,6 +316,9 @@ def current_datetime():
 def get_assign_file(assign_id):
     path=assignment.objects.filter(assign_id=assign_id)
     return path.assignFile
+
+def sortsub(l):
+    return l['']
 
 # def get_status(student,assignement):
 #     try:
