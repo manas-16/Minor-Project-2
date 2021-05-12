@@ -49,16 +49,16 @@ https://templatemo.com/tm-534-parallo
                   <ul class="navbar-nav">
                     <li class="nav-item">
                       <div class="btn btn-outline-dark">
-                        Create new Assignment
+                        Create new Exam
                       </div>
                     </li>
                     <li class="nav-item">
-                      <a href="{% url 'teacher:t_db'%}" class="btn btn-outline-dark">
+                      <a href="{% url 'teacher:t_db' teacher.id %}" class="btn btn-outline-dark">
                         Dashboard
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="{% url 'teacher:t_db'%}" class="btn btn-outline-dark">
+                      <a href="{% url 'teacher:t_db' teacher.id %}" class="btn btn-outline-dark">
                         Go back
                       </a>
                     </li>
@@ -84,11 +84,35 @@ https://templatemo.com/tm-534-parallo
                <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header"
    
                     <div class="tm-bg-white-transparent text-center tm-services-header tm-testimonials-header">
-                       <h2 class="tm-services-page-title tm-testimonials-page-title">Student Submissions</h2>
+                       <h2 class="tm-services-page-title tm-testimonials-page-title">Exams for {{class}}</h2>
                    </div>
                </div>
-            </div>  
+            </div>
+        <ul>
+        {% for exam in exam_list %}
+            <li>
+                {{exam.topic}}
+                {{exam.date}}
+                {{exam.starttime}}
+                {{exam.endtime}}
 
+                    <a href="{% url 'teacher:t_subject_exam_submission' teacher.id class.id subject.subject_code exam.id %}">
+                      View Submissions
+                    </a>
+            </li>
+        {% endfor %}
+        </ul>
+        <form action="{% url 'teacher:t_subject_exam_db' teacher.id class.id subject.subject_code  %}" method="POST" id="tmContactForm" class="tm-bg-black-transparent tm-contact-form">
+                  <table>
+                  {% csrf_token %}
+                  {{ form.as_table }}
+                  </table>
+                  <div class="text-right">
+                    <button type="submit" class="btn btn-primary tm-btn-submit rounded-0">
+                      Submit
+                    </button>
+                  </div>
+        </form>
 
          <!-- Page footer -->
          <footer class="row">

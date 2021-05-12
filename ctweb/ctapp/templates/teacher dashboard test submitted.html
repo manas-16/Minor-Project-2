@@ -49,10 +49,14 @@ https://templatemo.com/tm-534-parallo
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav">
                     <li class="nav-item">
-                      <a href="{% url 'teacher:t_db' %}" class="btn btn-outline-dark">Go Back</a>
+                      <a href="{% url 'teacher:t_db' teacher.id %}" class="btn btn-outline-dark">
+                        Dashboard
+                      </a>
                     </li>
                     <li class="nav-item">
-                      <a class="btn btn-outline-dark" href="{% url 't_logout' %}">Logout</a>
+                      <a href="{% url 'teacher:t_db' teacher.id %}" class="btn btn-outline-dark">
+                        Go back
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -73,9 +77,31 @@ https://templatemo.com/tm-534-parallo
                        <h2 class="tm-services-page-title tm-testimonials-page-title">Submission Status:</h2>
                    </div>
                </div>
-            </div>  
+            </div>
+          <h2>Teacher:{{teacher.name}}</h2>
+          <br><br><br>
+          <h2>Class:{{class}}</h2>
+          <br><br><br>
+          <hr><hr><hr>
+          <h2>Subject:{{subject}}</h2>
+          <br><br><br>
+                    <hr><hr><hr>
 
+          <h2>Test:{{test.topic}}</h2>
+          <br><br><br>
+          <h1>All Students</h1>
+                    <br><br><br>
+          {% for student in all_students %}
+            {{student.enrollment_number}} -  {{student.name}}
+          <br><br><br>
+          {% endfor %}
+          <br><br><br>
 
+<hr>
+          <h1>Students who attempted the test</h1>
+          {% for student in student_submission_list %}
+            {{student.stud_id.enrollment_number}} -  {{student.stud_id.name}}
+          {% endfor %}
          <!-- Page footer -->
          <footer class="row">
             <p class="col-12 text-white text-center tm-copyright-text">

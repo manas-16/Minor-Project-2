@@ -128,28 +128,35 @@ def assignment_viewer(request,id):
 
 #Exam Create
 def teach_exam_create(request,t_id,c_id,sub_id):
+    current_teacher = teacher.objects.get(id=t_id)
+    current_subject = subject.objects.get(subject_code=sub_id)
+    current_class=Class.objects.get(id=c_id)
+    exam_list = get_exam_teacher(current_subject,current_teacher,current_class)
     if request.method == 'POST':
         form = TestCreateForm(request.POST)
-
         if form.is_valid():
             new_test = form.save(commit=False)
-            new_test.t_id = teacher.objects.get(id=t_id)
-            new_test.c_id = Class.objects.get(id=c_id)
-            new_test.s_id = subject.objects.get(subject_code=sub_id)
+            new_test.t_id = current_teacher
+            new_test.c_id = current_class
+            new_test.s_id = current_subject
             new_test.save()
             print(new_test)
     form = TestCreateForm()
-    context = {'form': form}
-    template = loader.get_template('teacher dashboard create assignment.html')
+    context = {'teacher':current_teacher,'exam_list':exam_list,'subject':current_subject,'class':current_class,'form':form}
+    template = loader.get_template('teacher dashboard examination.html')
     return HttpResponse(template.render(context, request))
 
 #test attempted
 @login_required(login_url='t_login/')#list students who have given test and their report
-def teacher_test_submission(request,test_id):# list students who have submitted this assignment
-    template = loader.get_template('teacher_dashboard_test_submissions.html')
+def teacher_test_submission(request,t_id,c_id,sub_id,test_id):# list students who have submitted this assignment
+    current_teacher = teacher.objects.get(id=t_id)
+    current_subject = subject.objects.get(subject_code=sub_id)
+    current_class=Class.objects.get(id=c_id)
+    current_test = Test.objects.get(id=test_id)
+    template = loader.get_template('teacher dashboard test submitted.html')
     student_submission_list = student_testsubmission.objects.filter(id=test_id)
-    current_teacher = test_id.t_id
-    context = {'teacher':current_teacher,'submission_list':student_submission_list}
+    all_students = student.objects.all().filter(sem=current_class.sem).filter(sec=current_class.sec).filter(branch=current_class.branch)
+    context = {'teacher':current_teacher,'student_submission_list':student_submission_list,'all_students':all_students,'subject':current_subject,'class':current_class,'test':current_test}
     return HttpResponse(template.render(context, request))
 
 
@@ -306,6 +313,12 @@ def get_assignments(student,subject):
 def get_assignment_teacher(current_subject,current_teacher):
     try:
         return assignment.objects.filter(t_id=current_teacher).filter(s_id=current_subject)
+    except teacher_assign.DoesNotExist:
+        return False
+
+def get_exam_teacher(current_subject,current_teacher,current_class):
+    try:
+        return Test.objects.filter(t_id=current_teacher).filter(s_id=current_subject).filter(c_id=current_class)
     except teacher_assign.DoesNotExist:
         return False
 

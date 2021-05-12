@@ -96,7 +96,7 @@ https://templatemo.com/tm-534-parallo
                                 <div class="card-text" style="position:relative; top:0px;">
                                 <a class="btn btn-outline-dark" href="{% url 'teacher:t_subject_assignment_list' teacher.id class.s_id.subject_code class.c_id.id %}">Assignment</a>
 								                <br><br>
-								  <a class="btn btn-outline-dark" href="{}">Examination</a>
+								  <a class="btn btn-outline-dark" href="{% url 'teacher:t_subject_exam_db' teacher.id class.c_id.id class.s_id.subject_code %}">Examination</a>
                                 </div>
                               </div>
                             </div>
