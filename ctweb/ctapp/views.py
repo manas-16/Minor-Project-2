@@ -111,11 +111,16 @@ def teacher_subject_assign(request, id, sub_id,class_id):           # to list as
 
 #submission for test
 @login_required(login_url='t_login/')
-def teacher_assignment_submission(request,a_id):# list students who have submitted this assignment
+def teacher_assignment_submission(request,id,sub_id,class_id,a_id):# list students who have submitted this assignment
+    current_teacher = teacher.objects.get(id=id)
+    current_subject = subject.objects.get(subject_code=sub_id)
+    current_class=Class.objects.get(id=class_id)
     template = loader.get_template('teacher_dashboard_assignment_submissions.html')
     a = assignment.objects.filter(id=a_id)
     student_submission_list = student_submission.objects.filter(a_id=a_id)
-    context = {'submission_list':student_submission_list,'a':a}
+    all_students = student.objects.all().filter(branch=current_class.branch)
+    student_who_submit = [s.stud_id for s in student_submission_list]
+    context = {'submission_list':student_submission_list,'assignment':a,'subject':current_subject,'class':current_class,'teacher':current_teacher,'all_students':all_students,'student_who_submit':student_who_submit}
     return HttpResponse(template.render(context, request))
 
 @login_required(login_url='t_login/')

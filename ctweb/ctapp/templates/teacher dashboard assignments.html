@@ -115,7 +115,7 @@ https://templatemo.com/tm-534-parallo
                           <th scope="row">{{a.topic}}</th>
                           <td>{{a.last_date}}</td>
                           <td><a href="{{ a.assignfile.url }}" download class="btn btn-success assign_btn">Download</a></td>
-                          <td class="text-center"><a href="{% url 'teacher:t_assign_submit' a.id %}">Click</a></td>
+                          <td class="text-center"><a href="{% url 'teacher:t_assign_submit' teacher.id subject.subject_code class.id a.id %}">Click</a></td>
                         </tr>
                         {% endfor %}
                       </tbody>

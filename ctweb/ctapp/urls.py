@@ -12,6 +12,7 @@ urlpatterns = [
     path('t_dashboard/',include(([
         path('<int:id>/', views.teacher_dashboard,name='t_db'),#classes assigned
         path('t_sub_assign/<int:id>/<str:sub_id>/<int:class_id>', views.teacher_subject_assign,name='t_subject_assignment_list'),#list of assign
+        path('t_sub_assign_submit/<int:id>/<str:sub_id>/<int:class_id>/<int:a_id>',views.teacher_assignment_submission, name='t_assign_submit'),# list of assign
         path('t_s_view_assign/<int:assign_id>/<str:stud_id>/', views.assignment_viewer,name="view_submission"),  # view uploaded assignment
         path('t_sub_exam/<int:t_id>/<int:c_id>/<str:sub_id>',views.teach_exam_create, name='t_subject_exam_db'),# create exam
         path('t_sub_exam_subm/<int:t_id>/<int:c_id>/<str:sub_id>/<int:test_id>', views.teacher_test_submission,name='t_subject_exam_submission'),  # create exam

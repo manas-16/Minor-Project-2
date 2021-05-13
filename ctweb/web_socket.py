@@ -82,6 +82,8 @@ class MainHandler(tornado.websocket.WebSocketHandler):
         #delete video locally stored
         os.remove(name)
 
+        print("Successful!!!!")
+
 
 
 
