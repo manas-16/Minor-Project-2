@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8bdacce-e3c3-45ec-8498-3b9b792607c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/templates/teacher dashboard assignments.html" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/templates/teacher dashboard assignments.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/templates/teacher_dashboard_assignment_submissions.html" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/templates/teacher_dashboard_assignment_submissions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/ctapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/ctapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ctweb/web_socket.py" beforeDir="false" afterPath="$PROJECT_DIR$/ctweb/web_socket.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/phone and person count.py" beforeDir="false" afterPath="$PROJECT_DIR$/phone and person count.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -336,8 +336,8 @@ def proctor():
     yolo = YoloV3()
     load_darknet_weights(yolo, 'G:/yolov3.weights')
     details = []
-    #cap = cv2.VideoCapture(0)
-    cap = cv2.VideoCapture('0103IT181055.avi')
+    cap = cv2.VideoCapture(0)
+    #cap = cv2.VideoCapture('0103IT181055.avi')
     while (cap.isOpened()):
         ret, image = cap.read()
         if ret == False:
@@ -373,7 +373,7 @@ def proctor():
 
 print(proctor())
 
-cap = cv2.VideoCapture(0)
+"""cap = cv2.VideoCapture(0)
 
 while (True):
     ret, image = cap.read()
@@ -404,4 +404,4 @@ while (True):
         break
 
 cap.release()
-cv2.destroyAllWindows()
+cv2.destroyAllWindows()"""
