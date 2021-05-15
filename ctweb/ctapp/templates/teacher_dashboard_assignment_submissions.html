@@ -73,6 +73,36 @@ https://templatemo.com/tm-534-parallo
     <div class="row">
 
 
+      <div class="col-8">
+        <h2 class="mb-8" style="color:white;">Submissions:</h2>
+  
+        <div class="table-responsive">
+  
+          <table class="table custom-table table-bordered table-hover table-dark">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Enrollment No.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">View Submission</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for s in submission_list %}
+              <tr scope="row">
+                  <td>{{s.stud_id.enrollment_number}}</td>
+                  <td>{{s.stud_id.name}}</td>
+                    <td>Submitted</td>
+                    <td><a href="{{ s.a_id.assignfile.url }}" download class="btn btn-success assign_btn">Download</a></td>
+              </tr>
+              {% endfor %}
+  
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
     <div class="col-8">
       <h2 class="mb-8" style="color:white;">All Students Status:</h2>
 
@@ -99,35 +129,6 @@ https://templatemo.com/tm-534-parallo
             </tr>
             {% endfor %}
             
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-          <div class="col-8">
-      <h2 class="mb-8" style="color:white;">Submissions:</h2>
-
-      <div class="table-responsive">
-
-        <table class="table custom-table table-bordered table-hover table-dark">
-          <thead class="thead-light">
-            <tr>
-              <th scope="col">Enrollment No.</th>
-              <th scope="col">Name</th>
-              <th scope="col">Status</th>
-              <th scope="col">View Submission</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for s in submission_list %}
-            <tr scope="row">
-                <td>{{s.stud_id.enrollment_number}}</td>
-                <td>{{s.stud_id.name}}</td>
-                  <td>Submitted</td>
-                  <td><a href="{{ s.a_id.assignfile.url }}" download class="btn btn-success assign_btn">Download</a></td>
-            </tr>
-            {% endfor %}
-
           </tbody>
         </table>
       </div>
