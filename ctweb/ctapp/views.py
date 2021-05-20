@@ -72,7 +72,7 @@ def teacher_signup(request):
     form = TeacherForm()
     uform = UserForm()
     context = {'form': form,'uform':uform}
-    template = loader.get_template('student signup.html')
+    template = loader.get_template('teacher signup.html')
     return HttpResponse(template.render(context, request))
 
 

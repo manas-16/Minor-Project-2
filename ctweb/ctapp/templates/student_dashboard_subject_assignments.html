@@ -63,24 +63,6 @@ https://templatemo.com/tm-534-parallo
             </div>
           </div>
         </div>
-
-        <!-- Services header -->
-        <section class="row" id="tmServices">
-            <div class="col-12">
-               <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header"
-                    data-parallax="scroll"
-                    data-z-index="101"
-                    data-image-src="{% static 'img/colors.jpg' %}">
-   
-                    <div class="text-center tm-services-header tm-testimonials-header" style="background-color:#E3E3E3";>
-                       <h2 class="tm-services-page-title tm-testimonials-page-title">Here's the list of assignments for:</h2>
-                       <p class="tm-services-description mb-0">
-                           <b>{{subject.name}}  </b>
-                       </p>
-                   </div>
-               </div>
-            </div>  
-
             <!--accordian-->
             <div class="page-content page-container" id="page-content">
               <!-- <div class="padding">
@@ -88,7 +70,7 @@ https://templatemo.com/tm-534-parallo
                       <div class="col-lg-6 grid-margin stretch-card">
                           <div class="card">
                               <div class="card-body"> -->
-                                  <h4 class="card-title" style="color:white;">Assignments:</h4>
+                                  <h4 class="card-title" style="color:black">Assignments:</h4>
                                   <div class="mt-4">
                                       <div class="accordion" id="accordion" role="tablist">
                                         {% for a in assignment_list %}
@@ -112,34 +94,8 @@ https://templatemo.com/tm-534-parallo
                                           {% endfor %} 
                                       </div>
                                   </div>
-                              <!-- </div>
-                          </div>
-                      </div>
-                  </div>
-              </div> -->
           </div>
-          <!--accordian end-->
-            <!-- <div class="tm-tab-contents" id="assignments">
-                    <div id="first-tab-group" class="tabgroup">
-                        <div id="tab1">                            
-                            <div class="text-content">
-                              {% if error != '' %}
-                              <h1>{{ error }}</h1>
-                              {% else %}
-                              {% for a in assignment_list %}
-                              <h1>{{a.topic}}</h1>
-                              <h2>{{a.last_date}}</h2>
-                              <a href="{% url 'student:submit_assign' student.enrollment_number a.id%}">upload</a>
-                              {% endfor %}
-                              {% endif %}
-                            </div>
-                        </div> -->
-
-        <!-- {% for a in assignment_list %}
-        <h1>{{a.topic}}</h1>
-        <h2>{{a.last_date}}</h2>
-        <a href="{% url 'student:submit_assign' student.enrollment_number a.id%}">upload</a>
-        {% endfor %} -->
+    
 
          <!-- Page footer -->
          <footer class="row">

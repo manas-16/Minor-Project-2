@@ -2,6 +2,7 @@
 <html lang="en">
 
 {% load static %}
+{% load widget_tweaks %}
 
   <head>
     <meta charset="UTF-8" />
@@ -29,7 +30,6 @@ https://templatemo.com/tm-534-parallo
               <i class="fas fa-2x fa-pen tm-brand-icon"></i>
               <div class="tm-brand-texts">
                 <h1 class="text-uppercase tm-brand-name">College Tab</h1>
-                <p class="small black">Keep track of all your assignments here!</p>
               </div>
             </div>
           </div>
@@ -56,9 +56,9 @@ https://templatemo.com/tm-534-parallo
                       <div class="tm-nav-link-highlight"></div>
                       <a class="nav-link" href="{% url 's_login' %}">Student Login</a>
                     </li>
-					<li class="nav-item green-highlight active">
+				          	<li class="nav-item green-highlight active">
                       <div class="tm-nav-link-highlight"></div>
-                      <a class="nav-link" href="#">Teachers Login<span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="{% url 't_login' %}">Teachers Login<span class="sr-only">(current)</span></a>
                     </li>
                   </ul>
                 </div>
@@ -71,23 +71,49 @@ https://templatemo.com/tm-534-parallo
      
 
         <section class="row tm-contact-row">
-            <div class="col-lg-6 tm-contact-col-left">
+            <div class="col-lg-3 tm-contact-col-left"></div>
+            <div class="col-lg-6 tm-contact-col-center">
                 <form action="#" method="POST" id="tmContactForm" class="tm-bg-black-transparent tm-contact-form">
-				<p style="font-size:70%;">New User?</p>
-				<h1 class="text-uppercase tm-services-page-title tm-testimonials-page-title">Register</h1>
+                <p style="font-size:70%;" align="center">New User?</p>
+                <h1 class="text-uppercase tm-services-page-title tm-testimonials-page-title" align="center">Register</h1>
+                <table>
+                  {% csrf_token %}
+                  <br>
+                  <div class="form-group">
+                    {% render_field uform.username type="text" class="form-control" placeholder="Create Username" required="on" %}
+                  </div>
+                  <div class="form-group">
+                    {% render_field uform.password1 type="text" class="form-control" placeholder="Create Password" required="on" %}
+                  </div>
+                  <div class="form-group">
+                    {% render_field uform.password2 type="text" class="form-control" placeholder="Confirm Password" required="on" %}
+                  </div>                
+                  </table>
                   <table>
                   {% csrf_token %}
-                  {{ uform.as_table }}
+                  <div class="form-group">
+                    {% render_field form.name type="text" class="form-control" placeholder="Enter Name" required="on" %}
+                  </div>
+                  <div class="form-group">
+                    {% render_field form.college_name type="text" class="form-control" placeholder="{{form.get_college_name_display}}" required="on" %}
+                  </div>
+                  <div class="form-group">
+                    {% render_field form.email type="text" class="form-control" placeholder="Enter Email" required="on" %}
+                  </div>
+                  <div class="form-group">
+                    {% render_field form.branch type="text" class="form-control" placeholder="{{form.get_email_display}}" required="on" %}
+                  </div>
+                  <div class="form-group">
+                    {% render_field form.mobile_no type="text" class="form-control" placeholder="Enter Mobile Number" required="on" %}
+                  </div>                 
                   </table>
-                  <br><br>
-                  <table>
-                  {% csrf_token %}
-                  {{ form.as_table }}
-                  </table>
-                  <div class="text-right">
+                  <div class="text-center">
                     <button type="submit" class="btn btn-primary tm-btn-submit rounded-0">
                       Submit
                     </button>
+                  </div>
+                  <br>
+                  <div class="text-center">
                     <a href="{% url 't_login' %}">Already an user? Login here!</a>
                   </div>
                 </form>

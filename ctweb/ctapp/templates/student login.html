@@ -2,7 +2,7 @@
 <html lang="en">
 
 {% load static %}
-
+{% load widget_tweaks %}
 
   <head>
     
@@ -86,10 +86,10 @@ https://templatemo.com/tm-534-parallo
                   <form method="POST" action="{% url 's_login' %}">
                     {% csrf_token %}
                     <div class="form-group">
-                      <input id="contact_email" name="username" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Email" required="">
+                      <input id="contact_email" name="username" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Enter Username" required="on" autofocus="on">
                     </div>
                     <div class="form-group">
-                      <input type="password" name="password" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Password" required="">
+                      <input type="password" name="password" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Enter Password" required="on">
                     </div>
                     <div class="text-center">
                       <input type="submit" value = "Submit" class="btn btn-primary tm-btn-submit rounded-0">

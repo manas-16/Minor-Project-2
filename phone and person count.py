@@ -373,7 +373,7 @@ def proctor():
 
 print(proctor())
 
-"""cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)
 
 while (True):
     ret, image = cap.read()
@@ -404,4 +404,4 @@ while (True):
         break
 
 cap.release()
-cv2.destroyAllWindows()"""
+cv2.destroyAllWindows()

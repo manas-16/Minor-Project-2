@@ -101,10 +101,6 @@ def user_directory_path(instance, filename):
     name = str(instance.stud_id.enrollment_number)
     return 'Assignments/class_{0}/{1}/{2}/{3}.{4}'.format(cclass,sub,top,name,exe)
 
-
-
-
-
 class student_submission(models.Model):#assignment
     a_id = models.ForeignKey(assignment,on_delete=models.CASCADE)
     stud_id = models.ForeignKey(student,on_delete=models.CASCADE)
@@ -120,6 +116,7 @@ class student_submission(models.Model):#assignment
 class Test(models.Model):
     topic = models.CharField(max_length=50)
     link = models.CharField(max_length=1000)
+    form_link=models.CharField(max_length=1000,default="#")#google form link
     c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)       #class id
     s_id = models.ForeignKey(subject,on_delete=models.CASCADE)  #subject id
     t_id = models.ForeignKey(teacher,on_delete=models.CASCADE)  #teacher id

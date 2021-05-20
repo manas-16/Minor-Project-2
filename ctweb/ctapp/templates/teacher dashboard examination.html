@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{% load static %}
+  {% load static %}
+  {% load widget_tweaks %}
 
   <head>
     <meta charset="UTF-8" />
@@ -48,9 +49,7 @@ https://templatemo.com/tm-534-parallo
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav">
                     <li class="nav-item">
-                      <div class="btn btn-outline-dark">
-                        Create new Exam
-                      </div>
+                        <button data-toggle="collapse" data-target="#create" class="btn btn-outline-dark">Create new test</a>
                     </li>
                     <li class="nav-item">
                       <a href="{% url 'teacher:t_db' teacher.id %}" class="btn btn-outline-dark">
@@ -58,8 +57,8 @@ https://templatemo.com/tm-534-parallo
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="{% url 'teacher:t_db' teacher.id %}" class="btn btn-outline-dark">
-                        Go back
+                      <a href="{% url 't_logout' %}" class="btn btn-outline-dark">
+                        Logout
                       </a>
                     </li>
                   </ul>
@@ -68,51 +67,78 @@ https://templatemo.com/tm-534-parallo
             </div>
           </div>
         </div>
-
-        <!-- Services header -->
-        <section class="row" id="tmServices">
-            <div class="col-12">
-               <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header">
-   
-                    <div class="tm-bg-white-transparent text-center tm-services-header tm-testimonials-header">
-                       <h2 class="tm-services-page-title tm-testimonials-page-title">Question Paper</h2>
-                   </div>
-               </div>
-            </div>  
-			
-			<div class="col-12">
-               <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header"
-   
-                    <div class="tm-bg-white-transparent text-center tm-services-header tm-testimonials-header">
-                       <h2 class="tm-services-page-title tm-testimonials-page-title">Exams for {{class}}</h2>
-                   </div>
-               </div>
-            </div>
-        <ul>
-        {% for exam in exam_list %}
-            <li>
-                {{exam.topic}}
-                {{exam.date}}
-                {{exam.starttime}}
-                {{exam.endtime}}
-
-                    <a href="{% url 'teacher:t_subject_exam_submission' teacher.id class.id subject.subject_code exam.id %}">
-                      View Submissions
-                    </a>
-            </li>
-        {% endfor %}
-        </ul>
-        <form action="{% url 'teacher:t_subject_exam_db' teacher.id class.id subject.subject_code  %}" method="POST" id="tmContactForm" class="tm-bg-black-transparent tm-contact-form">
+        <section class="row collapse" id="create">
+          <div class="col-12">
+             <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header"
+                  data-parallax="scroll"
+                  data-z-index="101"
+                  data-image-src="{% static '' %}">
+ 
+                  <div class="tm-bg-white-transparent text-center tm-services-header tm-testimonials-header">
+                     <h3 style="color:black">Create New Test</h3>
+                     <br>
+                  <form action="{% url 'teacher:t_subject_exam_db' teacher.id class.id subject.subject_code  %}" method="POST" id="tmContactForm" class="tm-bg-black-transparent tm-contact-form">
                   <table>
                   {% csrf_token %}
-                  {{ form.as_table }}
-                  </table>
+                  <form action="{% url 'teacher:t_subject_exam_db' teacher.id class.id subject.subject_code %}" class="form" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      {% render_field form.topic type="text" class="form-control" placeholder="Enter Topic" required="on" %}
+                    </div>
+                    <div class="form-group">
+                      {% render_field form.link type="text" class="form-control" placeholder="Embed Link" required="on" %}
+                    </div>
+                    <div class="form-group">
+                      {% render_field form.form_link type="text" class="form-control" placeholder="Google Link" required="on" %}
+                    </div>
+                    <div class="form-group">
+                      {% render_field form.date type="date" class="form-control" required="on" %}
+                    </div>
+                    <div class="form-group">
+                      {% render_field form.starttime type="time" class="form-control" placeholder="Start Time" required="on" %}
+                    </div>
+                    <div class="form-group">
+                      {% render_field form.endtime type="time" class="form-control" placeholder="End Time" required="on" %}
+                    </div>                  
                   <div class="text-right">
                     <button type="submit" class="btn btn-primary tm-btn-submit rounded-0">
                       Submit
                     </button>
                   </div>
-        </form>
+                </table>
+              </form>
+            </div>
+          </div>
+          </section>
+          <section class="row" id="tmServices">
+            <div class="col-12">
+              <p><h2 style="color:white;">Exams:</h2></p>
+                  <div id="assignments">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Topic</th>
+                          <th scope="col">Link</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Time</th>
+                          <th scope="col">View Submissions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for exam in exam_list %}
+                        <tr>
+                          <td scope="row">{{exam.topic}}</td>
+                          <td><a href="{{ exam.form_link }}" class="btn btn-success assign_btn" target="_blank">Click</a></td>
+                          <td>{{exam.date}}</td>
+                          <td>{{exam.starttime}}-{{exam.endtime}}</td>
+                          <td class="text-center"><a href="{% url 'teacher:t_subject_exam_submission' teacher.id class.id subject.subject_code exam.id %}">Click</a></td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+              </div>  
+          </section>
 
          <!-- Page footer -->
          <footer class="row">

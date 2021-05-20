@@ -21,7 +21,7 @@ Parallo Template
 https://templatemo.com/tm-534-parallo
 -->
   <body id="assignmentPage">
-    <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/submitted2.jpg' %}">
+    <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/subs.jpg' %}">
       <div class="container-fluid">
         <div class="row tm-brand-row">
           <div class="col-lg-4 col-11">
@@ -54,8 +54,13 @@ https://templatemo.com/tm-534-parallo
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="{% url 'teacher:t_db' teacher.id %}" class="btn btn-outline-dark">
+                      <a href="{% url 'teacher:t_subject_exam_db' teacher.id class.id subject.subject_code %}" class="btn btn-outline-dark">
                         Go back
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{% url 't_logout' %}" class="btn btn-outline-dark">
+                        Logout
                       </a>
                     </li>
                   </ul>
@@ -66,42 +71,65 @@ https://templatemo.com/tm-534-parallo
         </div>
 
         <!-- Services header -->
-        <section class="row" id="tmServices">
-            <div class="col-12">
-               <div class="parallax-window tm-services-parallax-header tm-testimonials-parallax-header"
-                    data-parallax="scroll"
-                    data-z-index="101"
-                    data-image-src="{% static 'img/colors.jpg' %}">
-   
-                    <div class="text-center tm-services-header tm-testimonials-header" style="background-color:#E3E3E3";>
-                       <h2 class="tm-services-page-title tm-testimonials-page-title">Submission Status:</h2>
-                   </div>
-               </div>
-            </div>
-          <h2>Teacher:{{teacher.name}}</h2>
-          <br><br><br>
-          <h2>Class:{{class}}</h2>
-          <br><br><br>
-          <hr><hr><hr>
-          <h2>Subject:{{subject}}</h2>
-          <br><br><br>
-                    <hr><hr><hr>
+        
+      <div class="col-8">
+        <h2 class="mb-8" style="color:white;">Test Attempts</h2>
+  
+        <div class="table-responsive">
+  
+          <table class="table custom-table table-bordered table-hover table-dark">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Enrollment No.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for student in student_submission_list %}
+              <tr scope="row">
+                  <td>{{student.stud_id.enrollment_number}}</td>
+                  <td>{{student.stud_id.name}}</td>
+                  <td>Submitted</td>
+              </tr>
+              {% endfor %}
+  
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-          <h2>Test:{{test.topic}}</h2>
-          <br><br><br>
-          <h1>All Students</h1>
-                    <br><br><br>
-          {% for student in all_students %}
-            {{student.enrollment_number}} -  {{student.name}}
-          <br><br><br>
-          {% endfor %}
-          <br><br><br>
 
-<hr>
-          <h1>Students who attempted the test</h1>
-          {% for student in student_submission_list %}
-            {{student.stud_id.enrollment_number}} -  {{student.stud_id.name}}
-          {% endfor %}
+    <div class="col-8">
+      <h2 class="mb-8" style="color:white;">All Students Status:</h2>
+
+      <div class="table-responsive">
+
+        <table class="table custom-table table-bordered table-hover table-dark">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Enrollment No.</th>
+              <th scope="col">Name</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for student in all_students %}
+            <tr scope="row">
+                <td>{{student.enrollment_number}}</td>
+                <td>{{student.name}}</td>
+                {% if s in student_submission_list %}
+                  <td>Attempted</td>
+                {% else %}
+                  <td>No Attempt</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
          <!-- Page footer -->
          <footer class="row">
             <p class="col-12 text-white text-center tm-copyright-text">

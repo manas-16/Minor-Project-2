@@ -80,8 +80,12 @@ https://templatemo.com/tm-534-parallo
                      <br>
                       <form action="{% url 'teacher:t_subject_assignment_list' teacher.id subject.subject_code class.id %}" class="form" method="POST" enctype="multipart/form-data" id="assignment_uploader">
                         {% csrf_token %}
-                        {% render_field form.topic type="text" class="form-control" id="assignment_topic" placeholder="Enter Topic" required="on" %}
-                        {% render_field form.last_date type="date" class="form-control" id="assignment_date" placeholder="Enter Last date" required="on" %}
+                        <div class="form-group">
+                          {% render_field form.topic type="text" class="form-control" id="assignment_topic" placeholder="Enter Topic" required="on" %}
+                        </div>
+                        <div class="form-group">
+                          {% render_field form.last_date type="date" class="form-control" id="assignment_date" placeholder="Enter Last date" required="on" %}
+                        </div>
                         {% render_field form.assignfile type="file" class="form-control" id="upload_assignment" %}
                         <br>
                         <label for="upload_assignment">Choose file</label>
