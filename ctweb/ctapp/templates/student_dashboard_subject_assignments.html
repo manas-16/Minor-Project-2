@@ -64,36 +64,36 @@ https://templatemo.com/tm-534-parallo
           </div>
         </div>
             <!--accordian-->
-            <div class="page-content page-container" id="page-content">
-              <!-- <div class="padding">
-                  <div class="row container d-flex justify-content-center">
-                      <div class="col-lg-6 grid-margin stretch-card">
-                          <div class="card">
-                              <div class="card-body"> -->
-                                  <h4 class="card-title" style="color:black">Assignments:</h4>
-                                  <div class="mt-4">
-                                      <div class="accordion" id="accordion" role="tablist">
-                                        {% for a in assignment_list %}
-                                          <div class="card">
-                                              <div class="card-header" role="tab" id="heading-1">
-                                                <h6 class="mb-0"><a data-toggle="collapse" href="#open{{a.id}}" aria-expanded="false" aria-controls="collapse-1" data-abc="true" class="collapsed">{{a.topic}}</a></h6>
-                                              </div>
-                                              <div id="open{{a.id}}" class="collapse" role="tabpanel" aria-labelledby="heading-1" data-parent="#accordion">
-                                                  <div class="card-body">
-                                                      <div class="row">
-                                                          <div class="col-3"> <img src="https://img.icons8.com/bubbles/100/000000/administrator-male.png" class="mw-100" alt="image"> </div>
-                                                          <div class="col-9">
-                                                              <p class="mb-0">{{a.last_date}}</p>
-                                                              <p><a href="{{ a.assignfile.url }}" download class="btn btn-success assign_btn">Download</a></p>
-                                                              <p><a href="{% url 'student:submit_assign' student.enrollment_number a.id%}" class="btn btn-outline-dark assign_btn">Upload</a></p>
-                                                          </div>
+        <div class="page-content page-container" id="page-content">
+          <!-- <div class="padding">
+              <div class="row container d-flex justify-content-center">
+                  <div class="col-lg-6 grid-margin stretch-card">
+                      <div class="card">
+                          <div class="card-body"> -->
+                              <h4 class="card-title text-center" style="color:black">Assignments:</h4>
+                              <div class="mt-4">
+                                  <div class="accordion" id="accordion" role="tablist">
+                                    {% for a in assignment_list %}
+                                      <div class="card">
+                                          <div class="card-header" role="tab" id="heading-1">
+                                            <h6 class="mb-0"><a data-toggle="collapse" href="#open{{a.id}}" aria-expanded="false" aria-controls="collapse-1" data-abc="true" class="collapsed">{{a.topic}}</a></h6>
+                                          </div>
+                                          <div id="open{{a.id}}" class="collapse" role="tabpanel" aria-labelledby="heading-1" data-parent="#accordion" style="opacity: 0.7;">
+                                              <div class="card-body">
+                                                  <div class="row">
+                                                      <div class="col-3"> <img src="https://img.icons8.com/bubbles/100/000000/administrator-male.png" class="mw-100" alt="image"> </div>
+                                                      <div class="col-9">
+                                                          <p class="mb-0">{{a.last_date}}</p>
+                                                          <p><a href="{{ a.assignfile.url }}" download class="btn btn-success assign_btn">Download</a></p>
+                                                          <p><a href="{% url 'student:submit_assign' student.enrollment_number a.id%}" class="btn btn-outline-dark assign_btn">Upload</a></p>
                                                       </div>
                                                   </div>
                                               </div>
                                           </div>
-                                          {% endfor %} 
                                       </div>
+                                      {% endfor %} 
                                   </div>
+                              </div>
           </div>
     
 

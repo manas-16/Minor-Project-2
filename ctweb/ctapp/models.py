@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import widgets
 
 # Create your models here.(a,b) where a is input and b is stored in db
 SEMESTER_CHOICES = [("1", 1),("2", 2),("3", 3),("4", 4),("5", 5),("6", 6),("7", 7),("8", 8),]
@@ -116,7 +117,7 @@ class student_submission(models.Model):#assignment
 class Test(models.Model):
     topic = models.CharField(max_length=50)
     link = models.CharField(max_length=1000)
-    form_link=models.CharField(max_length=1000,default="#")#google form link
+    form_link=models.CharField(max_length=1000,default="Google Link")#google form link
     c_id  = models.ForeignKey(Class,on_delete=models.CASCADE)       #class id
     s_id = models.ForeignKey(subject,on_delete=models.CASCADE)  #subject id
     t_id = models.ForeignKey(teacher,on_delete=models.CASCADE)  #teacher id

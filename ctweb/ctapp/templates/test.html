@@ -15,11 +15,12 @@
     <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}" />
   
   </head>
+  
 <!--
 Parallo Template
 https://templatemo.com/tm-534-parallo
 -->
-  <body id="body" onload="openFullscreen()" style="overflow: hidden;">
+  <body id="body" style="overflow: hidden;">
     <div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'img/test.jpg' %}">
       <div class="container-fluid">
         <div class="row tm-brand-row">
@@ -80,7 +81,7 @@ https://templatemo.com/tm-534-parallo
                     </ol>
                   </div>
                   <a onclick="alertUser()" id="start_btn" class="btn btn-outline-light">Start Test!</a>
-                </div>
+               </div>
               </div>
             </div> 
         </section>
@@ -89,13 +90,12 @@ https://templatemo.com/tm-534-parallo
                 <div class="card-content center-align">
                     <video id="video" width="600" height="250" autoplay></video>
                     <canvas id="canvas" width="600" height="450" class="hide"></canvas>
-                    <canvas id="detect-data" width="600" height="450"></canvas>
+                    <!-- <canvas id="detect-data" width="600" height="450" class="hide"></canvas> -->
                     
                 </div>
           </div>
           <div id="test_form" class="test_elements">
-            <button type="button" class="btn" id="start-stream" style="margin-bottom: 10px">Start Face Detection</button>
-              {{test.link|safe}}
+             {{test.link|safe}}
           </div>
        </div>
 

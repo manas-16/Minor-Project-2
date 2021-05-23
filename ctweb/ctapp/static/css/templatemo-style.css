@@ -597,6 +597,8 @@ p {
 }
 #test_ques{
   background-color:#F8F8FF;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 #live_vd{
   width:200px;
@@ -606,16 +608,23 @@ p {
   top:400px;
 }
 
+#video{
+  position: fixed;
+  top: 400px;
+  left:730px;
+  float: right;
+}
+
 #test_body{
   position: relative;
   top:-50px;
   color:black;
 }
-
-#test_form{
-  position: relative;
-  left:-200px;
-  top:20px;
+iframe {
+    display: block;
+    width: 300%;
+    border: none;
+    overflow-x: hidden;
 }
 
 .test_elements{
@@ -722,6 +731,12 @@ p {
 .accordion .card .card-header * {
   font-weight: 400;
   font-size: 1rem
+}
+
+#accordion{
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
 }
 
 .mb-0,
